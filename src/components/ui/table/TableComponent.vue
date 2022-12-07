@@ -2,19 +2,22 @@
   <table class="table table-hover">
     <TableHead :config="config"/>
 
-    <ProjectTaskTableBody :body="projectTaskTableBody"/>
-    <ProjectTaskTableBody :body="projectQaTableBody"/>
-    <ProjectTaskTableBody :body="projectTotalTableBody"/>
+<!--    <ProjectTaskTableBody :body="projectTaskTableBody"/>-->
+<!--    <ProjectTaskTableBody :body="projectQaTableBody"/>-->
+<!--    <ProjectTaskTableBody :body="projectTotalTableBody"/>-->
   </table>
 </template>
 
 <script>
 import TableHead from "@/components/ui/table/TableHead";
-import ProjectTaskTableBody from "@/components/project/ProjectTaskTableBody";
+// import ProjectTaskTableBody from "@/components/project/ProjectTaskTableBody";
 
 export default {
   name: "TableComponent",
-  components: {ProjectTaskTableBody, TableHead},
+  components: {
+    // ProjectTaskTableBody,
+    TableHead
+  },
   props: {
     config: [Object, Array],
     tasks: [Object, Array],

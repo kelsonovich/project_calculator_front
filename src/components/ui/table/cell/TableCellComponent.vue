@@ -23,6 +23,8 @@ export default {
     classes(cell) {
       let classes = [];
 
+      classes.push(cell.class);
+
       if (cell.align === undefined) {
         return classes;
       }

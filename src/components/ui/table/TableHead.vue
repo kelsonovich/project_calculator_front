@@ -1,5 +1,5 @@
 <template>
-  <thead>
+  <thead :class="thBgClass">
   <tr>
     <th
         v-for="cell in config"
@@ -16,7 +16,8 @@
 export default {
   name: "TableHead",
   props: {
-    config: [Array, Object]
+    config: [Array, Object],
+    thBgClass: String,
   },
   methods: {
     classes(cell) {
@@ -37,13 +38,13 @@ export default {
 </script>
 
 <style scoped>
-  thead {
-    position: sticky;
-    top: 0;
-  }
+  /*thead {*/
+  /*  position: sticky;*/
+  /*  top: 0;*/
+  /*}*/
 
-  th:first-child, td:first-child {
-    position: sticky;
-    left: 0px;
-  }
+  /*th:first-child, td:first-child {*/
+  /*  position: sticky;*/
+  /*  left: 0px;*/
+  /*}*/
 </style>

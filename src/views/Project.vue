@@ -4,11 +4,11 @@
 
     <div class="tab-content" id="detalizationTabContent">
       <div class="tab-pane fade show active" id="client" role="tabpanel" aria-labelledby="client-tab" tabindex="0">
-
+        <ProjectClientTableComponent :project="project" :isClient="true"/>
       </div>
 
       <div class="tab-pane fade" id="scid" role="tabpanel" aria-labelledby="scid-tab" tabindex="0">
-
+        <ProjectClientTableComponent :project="project" :isClient="false"/>
       </div>
 
       <div class="tab-pane fade" id="detalization" role="tabpanel" aria-labelledby="detalization-tab" tabindex="0">
@@ -69,10 +69,12 @@ import TitleUI from "@/components/ui/Title";
 import ProjectPriceCardComponent from "@/components/project/ProjectPriceCardComponent";
 import ProjectFooterComponent from "@/components/project/ProjectFooterComponent";
 import ProjectDetalizationTableComponent from "@/components/project/ProjectDetalizationTableComponent";
+import ProjectClientTableComponent from "@/components/project/ProjectClientTableComponent";
 
 export default {
   name: "ProjectComponent",
   components: {
+    ProjectClientTableComponent,
     ProjectDetalizationTableComponent,
     ProjectFooterComponent,
     ProjectPriceCardComponent,

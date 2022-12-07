@@ -1,6 +1,6 @@
 <template>
   <HeaderTemplate/>
-  <div class="container container-fluid">
+  <div class="container-fluid">
     <router-view
         v-slot="{ Component, route }"
     >

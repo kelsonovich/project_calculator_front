@@ -1,59 +1,65 @@
 <template>
-  <div class="row">
-    <ProjectPriceInputComponent
-        :price="price.analyst"
-        :code="'analyst'"
-        :title="'Аналитик'"
-    />
-  </div>
-  <div class="row">
-    <ProjectPriceInputComponent
-        :price="price.designer"
-        :code="'designer'"
-        :title="'Дизайнер'"
-    />
-  </div>
-  <div class="row">
-    <ProjectPriceInputComponent
-        :price="price.front"
-        :code="'front'"
-        :title="'Верстальщик'"
-    />
-  </div>
-  <div class="row">
-    <ProjectPriceInputComponent
-        :price="price.back"
-        :code="'back'"
-        :title="'Разработчик'"
-    />
-  </div>
-  <div class="row">
-    <ProjectPriceInputComponent
-        :price="price.qa"
-        :code="'qa'"
-        :title="'QA'"
-    />
-  </div>
-  <div class="row">
-    <ProjectPriceInputComponent
-        :price="price.content"
-        :code="'content'"
-        :title="'Контент-менеджер'"
-    />
+  <div class="card card-body">
+    <div class="row">
+      <div class="col">
+        <ProjectInputComponent :input="getInput('analyst')"/>
+      </div>
+      <div class="col">
+        <ProjectInputComponent :input="getInput('designer')"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ProjectInputComponent :input="getInput('front')"/>
+      </div>
+      <div class="col">
+        <ProjectInputComponent :input="getInput('back')"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ProjectInputComponent :input="getInput('qa')"/>
+      </div>
+      <div class="col">
+        <ProjectInputComponent :input="getInput('content')"/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 
-import ProjectPriceInputComponent from "@/components/project/ProjectPriceInputComponent";
+import ProjectInputComponent from "@/components/project/ProjectInputComponent";
 
 export default {
   name: "ProjectPriceCardComponent",
   components: {
-    ProjectPriceInputComponent
+    ProjectInputComponent
   },
   props: {
     price: Object
+  },
+  data() {
+    return {
+      priceType: {
+        analyst: 'Аналитика',
+        designer: 'Дизайнер',
+        front: 'Верстальщик',
+        back: 'Разработчик',
+        qa: 'Тестирование',
+        content: 'Контент',
+      }
+    }
+  },
+  methods: {
+    getInput(type) {
+      return {
+        label: this.priceType[`${type}`],
+        key: type,
+        value: this.price[`${type}`],
+        readonly: false
+      }
+    },
   }
 }
 </script>

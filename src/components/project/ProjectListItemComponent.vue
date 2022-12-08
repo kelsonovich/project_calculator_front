@@ -1,13 +1,11 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      <router-link
-          class="stretched-link"
-          :to="route"
-      >
-        <span>{{ project.title }}</span>
-      </router-link>
-    </div>
+  <div class="card card-body" >
+    <router-link
+        class="stretched-link"
+        :to="route"
+    >
+      <span>{{ project.title }}</span>
+    </router-link>
   </div>
 </template>
 

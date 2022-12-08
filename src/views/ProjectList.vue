@@ -1,9 +1,9 @@
 <template>
-  <div v-if="allProjects">
+  <div v-if="allProjects" class="container">
     <ProjectListItemComponent
         v-for="project in allProjects"
         :key="project.id"
-        :project="project"
+        :project="project.result"
     />
   </div>
 </template>

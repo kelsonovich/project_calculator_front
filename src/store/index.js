@@ -29,12 +29,19 @@ export default createStore({
             if (result.status) {
                 context.commit('SET_ALL_PROJECTS', result.result);
             }
+
+            // if (result) {
+            //     context.commit('SET_ALL_PROJECTS', result);
+            // }
         },
         async getProject(context, {projectId, data}) {
             let result = await api.project.getProject(projectId, data);
             if (result.status) {
                 context.commit('SET_PROJECT', result.result);
             }
+            // if (result) {
+            //     context.commit('SET_PROJECT', result);
+            // }
         },
     },
 })

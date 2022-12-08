@@ -23,6 +23,10 @@ export default {
     classes(cell) {
       let classes = [];
 
+      if (cell.classes) {
+        classes = classes.concat(cell.classes);
+      }
+
       if (cell.align.vertical) {
         classes.push('align-middle')
       }

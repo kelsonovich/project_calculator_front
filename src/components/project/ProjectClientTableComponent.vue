@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow-x: auto;">
+  <div style="overflow-x: auto;" class="mt-5">
     <TableGanttComponent
         v-if="project"
         :config="config"
@@ -32,7 +32,7 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
         },
         {
           title: 'Комментарий',
@@ -42,7 +42,7 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
         },
       ],
       countWeeks: 0,
@@ -83,7 +83,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['w-10']
         });
       }
 

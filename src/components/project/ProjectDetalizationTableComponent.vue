@@ -100,7 +100,8 @@ export default {
             vertical: true,
             horizontal: true,
           }
-        }, {
+        },
+        {
           title: 'Разработка, max, руб',
           key: 'back_price_max',
           isEditable: false,
@@ -109,7 +110,8 @@ export default {
             vertical: true,
             horizontal: true,
           }
-        }, {
+        },
+        {
           title: 'Прототип',
           key: 'analyst_hours',
           isEditable: true,

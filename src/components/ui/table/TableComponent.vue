@@ -2,20 +2,20 @@
   <table class="table table-hover">
     <TableHead :config="config"/>
 
-<!--    <ProjectTaskTableBody :body="projectTaskTableBody"/>-->
-<!--    <ProjectTaskTableBody :body="projectQaTableBody"/>-->
-<!--    <ProjectTaskTableBody :body="projectTotalTableBody"/>-->
+    <ProjectTaskTableBody :body="prepare(tasks)"/>
+    <ProjectTaskTableBody :body="prepare([qa])"/>
+    <ProjectTaskTableBody :body="prepare([total])"/>
   </table>
 </template>
 
 <script>
 import TableHead from "@/components/ui/table/TableHead";
-// import ProjectTaskTableBody from "@/components/project/ProjectTaskTableBody";
+import ProjectTaskTableBody from "@/components/project/ProjectTaskTableBody";
 
 export default {
   name: "TableComponent",
   components: {
-    // ProjectTaskTableBody,
+    ProjectTaskTableBody,
     TableHead
   },
   props: {
@@ -25,32 +25,28 @@ export default {
     total: [Object, Array],
   },
   computed: {
-    projectTaskTableBody() {
-      return this.prepare(this.tasks, this.config);
-    },
-    projectQaTableBody() {
-      return this.prepare([this.qa], this.config);
-    },
-    projectTotalTableBody() {
-      return this.prepare([this.total], this.config);
-    },
+
   },
   methods: {
-    prepare(tasks, config) {
+    prepare(tasks) {
       let body = [];
-      tasks.map(element => {
+      tasks.forEach(task => {
         let row = [];
-        config.forEach(tableHeadCell => {
+        this.config.forEach(tableHeadCell => {
+          let tableHeadCellCopy = JSON.parse(JSON.stringify(tableHeadCell));
+
           let cell = {};
           let value = '-';
-          if (Object.prototype.hasOwnProperty.call(element, tableHeadCell.key)) {
-            value = element[tableHeadCell.key];
-            cell = tableHeadCell;
+
+          if (Object.prototype.hasOwnProperty.call(task, tableHeadCellCopy.key)) {
+            value = task[tableHeadCellCopy.key];
+            cell = tableHeadCellCopy;
           }
 
           cell.value = value;
           row.push(cell);
         });
+
         body.push(row);
       });
 

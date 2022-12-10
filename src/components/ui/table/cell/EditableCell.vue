@@ -3,7 +3,7 @@
     <input
         :type="cell.type"
         :name="cell.key"
-        class="form-control"
+        class="form-control form-control-sm"
         v-model="value"
         @input="setValue"
     />

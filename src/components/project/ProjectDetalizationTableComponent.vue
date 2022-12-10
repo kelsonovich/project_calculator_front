@@ -3,7 +3,7 @@
     <TableComponent
         v-if="project"
         :config="config"
-        :tasks="project.tasks"
+        :tasks="project.calculated"
         :qa="project.qa"
         :total="project.total.project"
     />
@@ -30,7 +30,8 @@ export default {
           align: {
             vertical: true,
             horizontal: false,
-          }
+          },
+          classes: ['title']
         },
         {
           title: 'Описание',
@@ -40,7 +41,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['description']
         },
         {
           title: 'Аналитика / Прототип',
@@ -50,7 +52,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Дизайн, min, руб',
@@ -60,7 +63,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Дизайн, max, руб',
@@ -70,7 +74,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Верстка, min, руб',
@@ -80,7 +85,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Верстка, max, руб',
@@ -90,8 +96,10 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
-        }, {
+          },
+          classes: ['title_price']
+        },
+        {
           title: 'Разработка, min, руб',
           key: 'back_price_min',
           isEditable: false,
@@ -99,7 +107,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Разработка, max, руб',
@@ -109,7 +118,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Прототип',
@@ -119,7 +129,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Дизайн, min',
@@ -129,7 +140,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Дизайн, max',
@@ -139,7 +151,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Верстка, min',
@@ -149,7 +162,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Верстка, max',
@@ -159,7 +173,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Разработка, min',
@@ -169,7 +184,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
         {
           title: 'Разработка, max',
@@ -179,7 +195,8 @@ export default {
           align: {
             vertical: true,
             horizontal: true,
-          }
+          },
+          classes: ['title_price']
         },
       ]
     }

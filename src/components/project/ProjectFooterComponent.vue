@@ -23,7 +23,7 @@
               class="nav-link" id="detalization-tab" data-bs-toggle="pill" data-bs-target="#detalization"
               type="button" role="tab" aria-controls="detalization" aria-selected="false" tabindex="-1"
           >
-            Деатлизация
+            Детализация
           </button>
         </li>
       </ul>

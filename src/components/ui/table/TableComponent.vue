@@ -1,10 +1,10 @@
 <template>
-  <table class="table table-hover">
-    <TableHead :config="config"/>
+  <table class="table table-hover table-responsive-xl">
+    <TableHead :config="config" :thBgClass="'table-primary'"/>
 
     <ProjectTaskTableBody :body="prepare(tasks)"/>
-    <ProjectTaskTableBody :body="prepare([qa])"/>
-    <ProjectTaskTableBody :body="prepare([total])"/>
+    <ProjectTaskTableBody :body="prepare([qa])" :isAdditional="true" :title="'Тестирование'"/>
+    <ProjectTaskTableBody :body="prepare([total])" :isAdditional="true" :title="'Итого'"/>
   </table>
 </template>
 
@@ -24,9 +24,7 @@ export default {
     qa: [Object, Array],
     total: [Object, Array],
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
     prepare(tasks) {
       let body = [];
@@ -35,12 +33,11 @@ export default {
         this.config.forEach(tableHeadCell => {
           let tableHeadCellCopy = JSON.parse(JSON.stringify(tableHeadCell));
 
-          let cell = {};
+          let cell = tableHeadCellCopy;
           let value = '-';
 
           if (Object.prototype.hasOwnProperty.call(task, tableHeadCellCopy.key)) {
             value = task[tableHeadCellCopy.key];
-            cell = tableHeadCellCopy;
           }
 
           cell.value = value;

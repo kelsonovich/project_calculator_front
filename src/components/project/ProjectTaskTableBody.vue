@@ -8,6 +8,8 @@
           v-for="cell in row"
           :key="cell.id"
           :cell="cell"
+          :isAdditional="isAdditional"
+          :title="title"
       />
     </tr>
   </tbody>
@@ -20,9 +22,10 @@ export default {
   name: "ProjectTaskTableBody",
   components: {TableCellComponent},
   props: {
-    body: [Array, Object]
+    body: [Array, Object],
+    isAdditional: Boolean,
+    title: String,
   },
-
 }
 </script>
 

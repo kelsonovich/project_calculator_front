@@ -42,13 +42,21 @@ export default {
 </script>
 
 <style scoped>
-  /*thead {*/
-  /*  position: sticky;*/
-  /*  top: 0;*/
-  /*}*/
+.title {
+  min-width: 350px;
+  position: sticky;
+  left: 0;
+}
 
-  /*th:first-child, td:first-child {*/
-  /*  position: sticky;*/
-  /*  left: 0px;*/
-  /*}*/
+.title_task, .description {
+  min-width: 500px;
+}
+
+.title_price {
+  min-width: 100px;
+}
+
+.date {
+  width: 40px;
+}
 </style>

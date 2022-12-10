@@ -1,16 +1,14 @@
 <template>
   <tbody>
     <template
-        v-for="(step, key) in steps"
+        v-for="(step, key) in prepare(steps)"
         :key="key"
     >
-      <tr v-if="isNeededRender(step, key)">
-        <TableCellComponent :cell="{value: step.title}" />
-        <TableCellComponent :cell="{value: step.description}" />
+      <tr>
         <TableCellComponent
-            v-for="(weekNumber) in projectLength"
-            :key="weekNumber"
-            :cell="getCellValue(step, key, weekNumber)"
+            v-for="cell in step"
+            :key="cell.id"
+            :cell="cell"
         />
       </tr>
     </template>
@@ -25,6 +23,7 @@ export default {
   components: {TableCellComponent},
   props: {
     steps: [Array, Object],
+    config: [Array, Object],
     isClient: Boolean,
     projectLength: [Number, String],
     agreementWeeks: [Number, String],
@@ -35,33 +34,65 @@ export default {
       lastStart: 0,
     }
   },
+  mounted() {
+    // console.log(this.prepare(this.steps));
+  },
   methods: {
-    isNeededRender(step, key){
+    isNeededRender(step) {
+      console.log(step);
+
       if (this.isClient) {
-        return Number(step.hours) > 0 && key !== 'buffer';
+        return Number(step.hours_min) > 0 && step.code !== 'buffer';
       }
 
-      return Number(step.hours) > 0;
+      return Number(step.hours_min) > 0;
     },
-    getCellValue(step, key, weekNumber) {
+    prepare(steps) {
+      let body = [];
+      steps.forEach(step => {
+        if (Number(step.hours_min) === 0 || (this.isClient && step.code === 'buffer')) {
+          return;
+        }
+
+        let row = [];
+        this.config.forEach((tableHeadCell, index) => {
+          let tableHeadCellCopy = JSON.parse(JSON.stringify(tableHeadCell));
+
+          let cell = tableHeadCellCopy;
+          let value = '';
+          if (Object.prototype.hasOwnProperty.call(step, tableHeadCellCopy.key)) {
+            value = step[tableHeadCellCopy.key];
+          } else if (cell.classes && cell.classes.includes('date')) {
+            let weekNumber = (this.isClient) ? (index - 1) : (index - 10);
+
+            cell.classes.push(this.getCellType(step, weekNumber));
+          }
+
+          cell.value = value;
+          row.push(cell);
+        });
+        body.push(row);
+      });
+
+      return body;
+    },
+    getCellType(step, weekNumber) {
       let background = '';
 
       background = (weekNumber > step.start && weekNumber <= step.end) ? 'bg-primary' : '';
-      if (key === 'qa') {
+      if (step.code === 'qa') {
         if (weekNumber > step.end) {
           background = ((weekNumber >= (step.end + this.agreementWeeks - 1)) && (weekNumber <= (step.end + this.agreementWeeks))) ? 'bg-danger' : '';
         }
       }
 
-      return {
-        value: '',
-        class: background
-      }
+      return background
     }
   }
 }
 </script>
 
 <style scoped>
+
 
 </style>

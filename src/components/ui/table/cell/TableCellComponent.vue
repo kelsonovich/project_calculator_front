@@ -5,7 +5,7 @@
     <component
         v-if="component(cell)"
         :is="component(cell)"
-        :cell="cell"
+        :cell="getCell(cell)"
     />
   </td>
 </template>
@@ -17,13 +17,15 @@ import EditableCell from "@/components/ui/table/cell/EditableCell";
 export default {
   name: "TableCellComponent",
   props: {
-    cell: Object
+    cell: Object,
+    isAdditional: Boolean,
+    title: String,
   },
   methods: {
     classes(cell) {
       let classes = [];
 
-      classes.push(cell.class);
+      classes.push(cell.classes);
 
       if (cell.align === undefined) {
         return classes;
@@ -40,16 +42,37 @@ export default {
       return classes;
     },
     component(cell) {
-      if (!cell.isEditable) {
+      if (! cell.isEditable || this.isAdditional) {
         return CellText;
       }
 
       return EditableCell;
+    },
+    getCell(cell) {
+      if (! this.isAdditional) {
+        return cell;
+      }
+
+      if (cell.key === 'title') {
+        cell.value = this.title;
+      } else if (cell.key === 'description') {
+        cell.value = '';
+      }
+
+      return cell;
     }
   }
 }
 </script>
 
 <style scoped>
-
+.title {
+  min-width: 350px;
+  position: sticky;
+  left: 0;
+  background: white;
+}
+td{
+  max-height: 40px;
+}
 </style>

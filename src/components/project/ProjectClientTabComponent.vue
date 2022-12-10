@@ -2,11 +2,11 @@
   <div>
     <ProjectDescriptionComponent :description="project.description" />
 
-    <div class="container-fluid row col-xl-4 col-md-12">
+    <div class="container-fluid row col-xl-4 col-md-12 mb-3">
       <ProjectDateComponent :project="project" :isReadonly="true"/>
     </div>
 
-    <ProjectClientTableComponent :project="project" :isReadonly="true"/>
+    <ProjectClientTableComponent :project="project" :isClient="true"/>
   </div>
 </template>
 

@@ -1,9 +1,26 @@
 <template>
-  <table class="table table-hover table-bordered">
+  <table class="table table-hover table-bordered table-sm">
     <TableHead :config="config" :thBgClass="'table-primary'"/>
 
-    <ProjectStepTableBody :steps="steps" :isClient="isClient" :projectLength="projectLength" :agreementWeeks="agreementWeeks" />
+    <ProjectStepTableBody
+        :steps="steps"
+        :config="config"
+        :isClient="isClient"
+        :projectLength="projectLength"
+        :agreementWeeks="agreementWeeks"
+    />
   </table>
+  <div class="container-fluid row">
+    <div class="row">
+      <div class="col-1 bg-primary"></div>
+      <div class="col-11"> — время работ подрядчика</div>
+    </div>
+    <div class="row">
+      <div class="col-1 bg-danger"></div>
+      <div class="col-11"> — время на согласование с заказчиком</div>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -23,6 +40,7 @@ export default {
     projectLength: [Number, String],
     agreementWeeks: [Number, String],
   },
+  methods: {}
 }
 </script>
 

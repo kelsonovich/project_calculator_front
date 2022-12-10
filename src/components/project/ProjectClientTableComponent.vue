@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow-x: auto;" class="mt-5">
+  <div style="overflow-x: auto;" class="mb-3">
     <TableGanttComponent
         v-if="project"
         :config="config"
@@ -31,8 +31,9 @@ export default {
           type: 'text',
           align: {
             vertical: true,
-            horizontal: true,
+            horizontal: false,
           },
+          classes: ['title']
         },
         {
           title: 'Комментарий',
@@ -41,7 +42,7 @@ export default {
           type: 'text',
           align: {
             vertical: true,
-            horizontal: true,
+            horizontal: false,
           },
         },
       ],
@@ -55,25 +56,123 @@ export default {
   },
   methods: {
     setConfig() {
+      let additionalColumns = [
+        {
+          title: 'Трудозатраты',
+          key: 'hours_min',
+          isEditable: false,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Кол-во сотруд. на этап',
+          key: 'employee_quantity',
+          isEditable: true,
+          type: 'number',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Согласование',
+          key: 'agreement',
+          isEditable: true,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Запараллеливание',
+          key: 'parallels',
+          isEditable: true,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Длит.этапа (неделей)',
+          key: 'weeks',
+          isEditable: false,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Кол-во сотруд. на этап',
+          key: 'employee_quantity',
+          isEditable: true,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Начало этапа',
+          key: 'start_date',
+          isEditable: false,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Конец этапа',
+          key: 'end_date',
+          isEditable: false,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Предварительная стоимость',
+          key: 'price',
+          isEditable: false,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+      ];
+
       if (! this.isClient) {
-        console.log(1);
+        additionalColumns.forEach(column => {
+          this.config.push(column);
+        });
       }
+
     },
     setCountWeeks() {
       if (this.project) {
-        for (const key in this.project.steps) {
-          this.countWeeks += this.project.steps[`${key}`].weeks;
-        }
+
+        this.project.steps.forEach(step => {
+          this.countWeeks += step.weeks;
+        });
 
         this.countWeeks += this.project.agreementWeeks;
       }
     },
     setWeeksInConfig() {
+
       for (let i = 0; i < this.countWeeks; i++) {
         let currentDate = new Date(this.project.start);
         currentDate.setDate(currentDate.getDate() + 7 * i);
 
-        const date = currentDate.toLocaleDateString('ru-RU', {month:"numeric", day:"numeric"});
+        const date = currentDate.toLocaleDateString('ru-RU', {month: "numeric", day: "numeric"});
 
         this.config.push({
           title: date,
@@ -84,10 +183,9 @@ export default {
             vertical: true,
             horizontal: true,
           },
-          classes: ['w-10']
+          classes: ['date']
         });
       }
-
     },
   }
 }

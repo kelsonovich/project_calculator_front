@@ -22,15 +22,17 @@
       <!--      </ul>-->
 
       <div class="col-md-3 text-end">
-        <!--        <button type="button" class="btn btn-outline-primary me-2">Login</button>-->
+        <CreateProjectComponent />
       </div>
     </header>
   </div>
 </template>
 
 <script>
+import CreateProjectComponent from "@/components/CreateProjectComponent";
 export default {
   name: "HeaderTemplate",
+  components: {CreateProjectComponent},
   data() {
     return {
       projectName: 'Калькулятор проектов'

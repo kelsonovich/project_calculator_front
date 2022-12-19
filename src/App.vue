@@ -1,6 +1,7 @@
 <template>
   <HeaderTemplate/>
   <div class="container-fluid">
+    <PreloaderComponent v-if="preloader > 0"/>
     <router-view
         v-slot="{ Component, route }"
     >
@@ -16,11 +17,19 @@
 
 <script>
 import HeaderTemplate from "@/components/template/Header";
+import PreloaderComponent from "@/components/ui/PreloaderComponent";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default {
   name: 'App',
   components: {
+    PreloaderComponent,
     HeaderTemplate,
+  },
+  computed:{
+    preloader() {
+      return this.$store.getters.PRELOADER;
+    },
   },
   mounted() {
     // document.body.classList.add('d-flex', 'flex-column', 'min-vh-100')

@@ -2,7 +2,7 @@
   <table class="table table-hover table-responsive-xl">
     <TableHead :config="config" :thBgClass="'table-primary'"/>
 
-    <ProjectTaskTableBody :body="prepare(tasks)"/>
+    <ProjectTaskTableBody :body="prepare(tasks)" :type="'task'"/>
     <ProjectTaskTableBody :body="prepare([qa])" :isAdditional="true" :title="'Тестирование'"/>
     <ProjectTaskTableBody :body="prepare([total])" :isAdditional="true" :title="'Итого'"/>
   </table>
@@ -40,6 +40,7 @@ export default {
             value = task[tableHeadCellCopy.key];
           }
 
+          cell.id = task.id;
           cell.value = value;
           row.push(cell);
         });

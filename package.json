@@ -10,8 +10,10 @@
   "dependencies": {
     "axios": "^1.2.0",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.2",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
+    "vue-imask": "^6.4.3",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

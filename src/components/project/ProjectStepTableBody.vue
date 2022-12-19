@@ -9,6 +9,7 @@
             v-for="cell in step"
             :key="cell.id"
             :cell="cell"
+            @update="updateStep"
         />
       </tr>
     </template>
@@ -34,18 +35,9 @@ export default {
       lastStart: 0,
     }
   },
-  mounted() {
-    // console.log(this.prepare(this.steps));
-  },
   methods: {
-    isNeededRender(step) {
-      console.log(step);
-
-      if (this.isClient) {
-        return Number(step.hours_min) > 0 && step.code !== 'buffer';
-      }
-
-      return Number(step.hours_min) > 0;
+    updateStep(value) {
+      this.$store.dispatch('updateStep', {stepId: value.id, data: value})
     },
     prepare(steps) {
       let body = [];
@@ -68,6 +60,7 @@ export default {
             cell.classes.push(this.getCellType(step, weekNumber));
           }
 
+          cell.id = step.id;
           cell.value = value;
           row.push(cell);
         });

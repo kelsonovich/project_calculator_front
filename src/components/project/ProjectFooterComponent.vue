@@ -1,6 +1,6 @@
 <template>
-  <footer class="footer mt-auto py-3 bg-body">
-    <div class="container">
+  <footer class="footer mt-auto py-3 bg-body sticky-bottom border-top">
+    <div class="">
       <ul class="nav nav-pills nav-fill mt-3" id="detalizationTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button
@@ -38,5 +38,7 @@ export default {
 </script>
 
 <style scoped>
-
+.footer {
+  bottom: 0px;
+}
 </style>

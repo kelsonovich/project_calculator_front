@@ -49,12 +49,19 @@ export default {
       countWeeks: 0,
     }
   },
+  watch: {
+    project: 'reload'
+  },
   mounted() {
-    this.setConfig();
-    this.setCountWeeks();
-    this.setWeeksInConfig();
+    this.reload();
   },
   methods: {
+    reload() {
+      console.log(1);
+      this.setConfig();
+      this.setCountWeeks();
+      this.setWeeksInConfig();
+    },
     setConfig() {
       let additionalColumns = [
         {

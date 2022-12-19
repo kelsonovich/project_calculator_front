@@ -6,6 +6,7 @@
         v-if="component(cell)"
         :is="component(cell)"
         :cell="getCell(cell)"
+        @updateCell="update"
     />
   </td>
 </template>
@@ -22,6 +23,12 @@ export default {
     title: String,
   },
   methods: {
+    update(value) {
+      console.log(this.cell);
+      value.id = this.cell.id;
+
+      this.$emit('update', value);
+    },
     classes(cell) {
       let classes = [];
 

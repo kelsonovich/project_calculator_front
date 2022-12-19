@@ -2,11 +2,11 @@
   <div>
     <div class="container-fluid row">
       <div class="col-sm-6 mb-3">
-        <ProjectDateComponent :project="project" :isClient="false"/>
+        <ProjectDateComponent :project="project" :isClient="false" @updateProject="updateProject"/>
       </div>
       <div class="col-sm-6">
         <div class="row mb-3">
-          <ProjectPriceCardComponent :price="project.price"/>
+          <ProjectPriceCardComponent :price="project.price" @updateProject="updateProject"/>
         </div>
         <div class="row mb-3">
           <div class="card card-body">
@@ -38,9 +38,15 @@ export default {
         label: 'Кол-во часов в неделю на 1 сотрудника',
         key: 'hours_per_week',
         value: this.project.hours_per_week,
-        readonly: true
+        readonly: true,
+        type: 'string'
       }
     }
+  },
+  methods: {
+    updateProject(value) {
+      this.$emit('updateProject', value);
+    },
   }
 }
 </script>

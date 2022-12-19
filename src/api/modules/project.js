@@ -18,4 +18,28 @@ export default class Project {
         }
         return res
     }
+
+    static async createProject(data) {
+        let res = await network.post(this.route, data);
+        if (res.isSuccess) {
+            // console.log('api_form', res)
+        }
+        return res
+    }
+
+    static async update(projectId, data) {
+        let res = await network.patch(this.route + `/${projectId}`, data);
+        if (res.isSuccess) {
+            // console.log('api_form', res)
+        }
+        return res
+    }
+
+    static async delete(projectId) {
+        let res = await network.delete(this.route + `/${projectId}`);
+        if (res.isSuccess) {
+            // console.log('api_form', res)
+        }
+        return res
+    }
 }

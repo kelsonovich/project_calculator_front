@@ -1,47 +1,23 @@
 <template>
-  <div>
-    <input
-        :type="cell.type"
-        :name="cell.key"
-        class="form-control form-control-sm"
-        v-model="value"
-        @input="setValue"
-    />
-  </div>
+  <ProjectInputComponent :input="cell" @update="setValue"/>
 </template>
 
 <script>
+import ProjectInputComponent from "@/components/project/ProjectInputComponent";
 export default {
   name: "EditableCell",
+  components: {ProjectInputComponent},
   props: {
     cell: Object
   },
-  data() {
-    return {
-      value: this.cell.value
-    }
-  },
   methods: {
-    setValue() {
-      console.log({
-        key: this.cell.key,
-        value: this.value
-      });
+    setValue(value) {
+      this.$emit('updateCell', value);
     }
   }
 }
 </script>
 
 <style scoped>
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
 </style>

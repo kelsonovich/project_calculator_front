@@ -1,6 +1,6 @@
 <template>
   <div class="card card-body h-100">
-    <ProjectInputComponent :input="getProjectStart"/>
+    <ProjectInputComponent :input="getProjectStart" @update="updateStartDate"/>
     <ProjectInputComponent :input="getProjectEnd"/>
     <ProjectInputComponent :input="getProjectDuration"/>
     <ProjectInputComponent :input="getProjectPrice"/>
@@ -17,13 +17,18 @@ export default {
     isReadonly: Boolean,
     project: Object
   },
+  watch: {
+    project: 'reload'
+  },
   computed: {
     getProjectStart() {
       return {
         label: 'Дата начала проекта',
         key: 'start',
-        value: new Date(this.project.start).toLocaleDateString(),
-        readonly: this.isReadonly
+        value: this.project.start,
+        readonly: this.isReadonly,
+        type: 'date',
+        class: ['mb-3']
       }
     },
     getProjectEnd() {
@@ -31,7 +36,9 @@ export default {
         label: 'Дата окончания проекта',
         key: 'end',
         value: this.project.end,
-        readonly: true
+        readonly: true,
+        type: 'date',
+        class: ['mb-3']
       }
     },
     getProjectDuration() {
@@ -40,7 +47,9 @@ export default {
             '* При расчете сроков праздничные дни не учтены.',
         key: 'start',
         value: this.project.duration,
-        readonly: true
+        readonly: true,
+        type: 'string',
+        class: ['mb-3']
       }
     },
     getProjectPrice() {
@@ -49,8 +58,15 @@ export default {
             '*для стандартных условий Договора',
         key: 'price',
         value: this.project.total.price,
-        readonly: true
+        readonly: true,
+        type: 'string',
+        class: ['mb-3']
       }
+    },
+  },
+  methods: {
+    updateStartDate(value) {
+      this.$emit('updateProject', value);
     },
   }
 }

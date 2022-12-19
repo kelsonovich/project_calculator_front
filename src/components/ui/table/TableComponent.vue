@@ -2,9 +2,9 @@
   <table class="table table-hover table-responsive-xl">
     <TableHead :config="config" :thBgClass="'table-primary'"/>
 
-    <ProjectTaskTableBody :body="prepare(tasks)" :type="'task'"/>
-    <ProjectTaskTableBody :body="prepare([qa])" :isAdditional="true" :title="'Тестирование'"/>
-    <ProjectTaskTableBody :body="prepare([total])" :isAdditional="true" :title="'Итого'"/>
+    <ProjectTaskTableBody :config="config" :body="tasks" :type="'task'" @updateProject="update"/>
+    <ProjectTaskTableBody :config="config" :body="[qa]" :isAdditional="true" :title="'Тестирование'"/>
+    <ProjectTaskTableBody :config="config" :body="[total]" :isAdditional="true" :title="'Итого'"/>
   </table>
 </template>
 
@@ -24,31 +24,10 @@ export default {
     qa: [Object, Array],
     total: [Object, Array],
   },
-  computed: {},
   methods: {
-    prepare(tasks) {
-      let body = [];
-      tasks.forEach(task => {
-        let row = [];
-        this.config.forEach(tableHeadCell => {
-          let tableHeadCellCopy = JSON.parse(JSON.stringify(tableHeadCell));
-
-          let cell = tableHeadCellCopy;
-          let value = '-';
-
-          if (Object.prototype.hasOwnProperty.call(task, tableHeadCellCopy.key)) {
-            value = task[tableHeadCellCopy.key];
-          }
-
-          cell.id = task.id;
-          cell.value = value;
-          row.push(cell);
-        });
-
-        body.push(row);
-      });
-
-      return body;
+    update() {
+      console.log('TableComponent');
+      this.$emit('updateProject');
     }
   }
 }

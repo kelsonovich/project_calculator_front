@@ -1,30 +1,30 @@
 <template>
-  <tbody>
-  <tr
-      v-for="row in getBody"
-      :key="row.id"
-  >
-    <TableCellComponent
-        v-for="cell in row"
-        :key="cell.id"
-        :cell="cell"
-        :isAdditional="isAdditional"
-        :title="title"
-        @update="updateTask"
-    />
-    <template v-if="isTask">
-      <td>
-        <button class="btn btn-outline-danger" @click="deleteTask(row)">
-          <i class="bi bi-trash3"></i>
-        </button>
-      </td>
-      <td v-if="isLast(row)">
-        <button class="btn btn-outline-success" @click="createTask()">
-          <i class="bi bi-plus-lg"></i>
-        </button>
-      </td>
-    </template>
-  </tr>
+  <tbody v-if="rows">
+    <tr
+        v-for="row in prepareRows"
+        :key="row.id"
+    >
+      <TableCellComponent
+          v-for="cell in row"
+          :key="cell.id"
+          :cell="cell"
+          :isAdditional="isAdditional"
+          :title="title"
+          @updateTask="update"
+      />
+      <template v-if="isTask">
+        <td>
+          <button class="btn btn-outline-danger" @click="deleteTask(row)">
+            <i class="bi bi-trash3"></i>
+          </button>
+        </td>
+        <td v-if="isLast(row)">
+          <button class="btn btn-outline-success" @click="createTask()">
+            <i class="bi bi-plus-lg"></i>
+          </button>
+        </td>
+      </template>
+    </tr>
   </tbody>
 </template>
 
@@ -39,6 +39,7 @@ export default {
     isAdditional: Boolean,
     title: String,
     type: String,
+    config: [Object, Array],
   },
   data() {
     return {
@@ -49,14 +50,17 @@ export default {
     isTask() {
       return this.type === 'task';
     },
-    getBody() {
-      return this.rows;
+    prepareRows() {
+      return this.prepare(this.rows);
     },
   },
   methods: {
-    updateTask(value) {
+    update(value) {
       if (this.type === 'task') {
+        console.log('ProjectTaskTableBody');
+
         this.$store.dispatch('updateTask', {taskId: value.id, data: value});
+        this.$emit('updateProject');
       }
     },
     isLast(row) {
@@ -86,6 +90,42 @@ export default {
       });
 
       this.rows.push(newTask);
+    },
+    prepare(tasks) {
+      if (tasks.length === 0) {
+        for (let i = 0; i < this.config.length; i++) {
+          tasks.push({});
+        }
+
+        tasks = [tasks];
+      }
+
+      let body = [];
+      tasks.forEach(task => {
+        let row = [];
+        this.config.forEach(tableHeadCell => {
+          let tableHeadCellCopy = JSON.parse(JSON.stringify(tableHeadCell));
+
+          let cell = tableHeadCellCopy;
+          let value = '-';
+
+          if (tableHeadCellCopy.isEditable) {
+            value = (tableHeadCellCopy.type === 'text') ? '' : 0;
+          }
+
+          if (Object.prototype.hasOwnProperty.call(task, tableHeadCellCopy.key)) {
+            value = task[tableHeadCellCopy.key];
+          }
+
+          cell.id = task.id;
+          cell.value = value;
+          row.push(cell);
+        });
+
+        body.push(row);
+      });
+
+      return body;
     }
   }
 }

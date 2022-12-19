@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
     Новый проект
   </button>
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -39,17 +39,20 @@ export default {
       project: null
     }
   },
+  computed: {
+    newProjectId() {
+      return this.$store.getters.GET_NEW_PROJECT_ID;
+    }
+  },
   methods: {
     setTitle(value) {
       this.project = value;
     },
-    createProject() {
+    async createProject() {
       if (this.project.title.length > 5) {
-        this.$store.dispatch('createProject', {data: this.project});
-
+        await this.$store.dispatch('createProject', {data: this.project});
         document.querySelector('button[data-bs-dismiss="modal"]').click();
-
-        this.$store.dispatch('getAllProjects');
+        this.$router.push({path: '/project/' + this.$store.getters.GET_NEW_PROJECT_ID});
       }
     },
   }

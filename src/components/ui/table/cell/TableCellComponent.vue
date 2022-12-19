@@ -24,10 +24,10 @@ export default {
   },
   methods: {
     update(value) {
-      console.log(this.cell);
       value.id = this.cell.id;
+      console.log('TableCellComponent');
 
-      this.$emit('update', value);
+      this.$emit('updateTask', value);
     },
     classes(cell) {
       let classes = [];

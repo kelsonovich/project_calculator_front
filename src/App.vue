@@ -22,11 +22,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default {
   name: 'App',
+  metaInfo: {
+    title: 'Калькулятор проектов',
+  },
   components: {
     PreloaderComponent,
     HeaderTemplate,
   },
-  computed:{
+  computed: {
     preloader() {
       return this.$store.getters.PRELOADER;
     },
@@ -38,4 +41,5 @@ export default {
 </script>
 
 <style>
+
 </style>

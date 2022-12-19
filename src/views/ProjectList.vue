@@ -4,6 +4,7 @@
         v-for="project in allProjects"
         :key="project.id"
         :project="project.result"
+        @delete="load"
     />
   </div>
 </template>
@@ -20,9 +21,13 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('getAllProjects');
+    this.load();
   },
-  methods: {}
+  methods: {
+    load() {
+      this.$store.dispatch('getAllProjects');
+    }
+  }
 }
 </script>
 

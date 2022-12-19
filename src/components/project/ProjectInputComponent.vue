@@ -10,7 +10,7 @@
     <input
         :id="input.key"
         :type="input.type"
-        class="form-control form-control-sm"
+        :class="getClass"
         :readonly="input.readonly"
         :disabled="input.readonly"
         v-model="inputValue"
@@ -31,6 +31,20 @@ export default {
   data() {
     return {
       inputValue: this.input.value,
+    }
+  },
+  computed: {
+    getClass() {
+      let classes = [];
+
+      classes.push('form-control');
+      classes.push('form-control-sm');
+
+      if (this.input.type === 'number') {
+        classes.push('input__text_center');
+      }
+
+      return classes;
     }
   },
   methods: {
@@ -60,7 +74,7 @@ export default {
     },
     isNumber() {
       return this.input.type === 'number';
-    }
+    },
   },
   directives: {
     imask: IMaskDirective,
@@ -79,5 +93,8 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+td .input__text_center {
+  text-align: center;
 }
 </style>

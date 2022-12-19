@@ -1,15 +1,13 @@
 <template>
   <div class="card card-body mb-3" >
     <div class="row">
-      <div class="col-11 pointer-event" @click="redirect(project)">
-        <router-link
-            :to="route"
-        >
-          <span>{{ project.title }}</span>
-        </router-link>
+      <div class="col-11" @click="redirect(project)" style="cursor:pointer;">
+        <span class="fs-4 align-middle">
+          {{ project.title }}
+        </span>
       </div>
       <div class="col-1 d-grid gap-2 mx-auto">
-        <DeleteProjectComponent :project="project" />
+        <DeleteProjectComponent :project="project" @click="sendDelete"/>
       </div>
     </div>
   </div>
@@ -24,14 +22,12 @@ export default {
   props: {
     project: Object
   },
-  computed: {
-    route() {
-      return '/project/' + this.project.id;
-    }
-  },
   methods: {
     redirect() {
       this.$router.push({path: '/project/' + this.project.id});
+    },
+    sendDelete() {
+      this.$emit('delete');
     }
   }
 }

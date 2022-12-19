@@ -3,9 +3,10 @@
     <TableComponent
         v-if="project"
         :config="config"
-        :tasks="project.calculated"
+        :tasks="this.project.calculated"
         :qa="project.qa"
         :total="project.total.project"
+        @updateProject="update"
     />
   </div>
 </template>
@@ -201,7 +202,12 @@ export default {
       ]
     }
   },
-  methods: {}
+  methods: {
+    update(){
+      console.log('ProjectDetalizationTableComponent');
+      this.$emit('updateProject');
+    }
+  }
 }
 </script>
 

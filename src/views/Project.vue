@@ -1,5 +1,5 @@
 <template>
-  <div v-if="project">
+  <div v-if="project" class="project__body">
     <TitleUI :title="project.title"/>
 
     <div class="tab-content" id="detalizationTabContent">
@@ -56,13 +56,16 @@ export default {
       }
     },
     async updateProject(value) {
-      console.log('updated');
+      console.log('ProjectComponent');
       await this.$store.dispatch('updateProject', {projectId: this.$route.params.projectId, data: value});
+      this.load();
     }
   }
 }
 </script>
 
 <style scoped>
-
+.project__body {
+  min-height: 84vh;
+}
 </style>

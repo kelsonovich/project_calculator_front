@@ -12,7 +12,8 @@ export default {
   },
   methods: {
     deleteProject() {
-      this.$store.dispatch('deleteProject', {projectId: this.project.id})
+      this.$store.dispatch('deleteProject', {projectId: this.project.id});
+      this.$emit('click');
     }
   }
 }

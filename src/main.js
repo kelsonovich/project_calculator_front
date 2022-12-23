@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import router from './router';
 import store from './store';
 import network from "@/api/network";
+import '@/assets/css/custom.css';
 
 network.configure();
 

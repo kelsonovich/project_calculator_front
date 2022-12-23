@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      config: [
+      defaultConfig: [
         {
           title: 'Наименование задачи',
           key: 'title',
@@ -46,6 +46,7 @@ export default {
           },
         },
       ],
+      config: [],
       countWeeks: 0,
     }
   },
@@ -57,9 +58,7 @@ export default {
   },
   methods: {
     reload() {
-      console.log(1);
       this.setConfig();
-      this.setCountWeeks();
       this.setWeeksInConfig();
     },
     setConfig() {
@@ -156,6 +155,8 @@ export default {
         },
       ];
 
+      this.config = JSON.parse(JSON.stringify(this.defaultConfig));
+
       if (! this.isClient) {
         additionalColumns.forEach(column => {
           this.config.push(column);
@@ -163,19 +164,9 @@ export default {
       }
 
     },
-    setCountWeeks() {
-      if (this.project) {
-
-        this.project.steps.forEach(step => {
-          this.countWeeks += step.weeks;
-        });
-
-        this.countWeeks += this.project.agreementWeeks;
-      }
-    },
     setWeeksInConfig() {
 
-      for (let i = 0; i < this.countWeeks; i++) {
+      for (let i = 0; i < this.project.countWeeks + 2; i++) {
         let currentDate = new Date(this.project.start);
         currentDate.setDate(currentDate.getDate() + 7 * i);
 

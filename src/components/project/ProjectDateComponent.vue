@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-body h-100">
+  <div class="card card-body h-100" v-if="project">
     <ProjectInputComponent :input="getProjectStart" @update="updateStartDate"/>
     <ProjectInputComponent :input="getProjectEnd"/>
     <ProjectInputComponent :input="getProjectDuration"/>
@@ -15,10 +15,14 @@ export default {
   components: {ProjectInputComponent},
   props: {
     isReadonly: Boolean,
-    project: Object
   },
-  watch: {
-    project: 'reload'
+  data() {
+    return {
+      project: null
+    }
+  },
+  mounted() {
+    this.setProject();
   },
   computed: {
     getProjectStart() {
@@ -68,6 +72,10 @@ export default {
     updateStartDate(value) {
       this.$emit('updateProject', value);
     },
+    setProject() {
+      this.project = this.$store.getters.GET_PROJECT;
+      console.log(this.project.start);
+    }
   }
 }
 </script>

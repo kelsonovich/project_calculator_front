@@ -6,6 +6,7 @@ export default createStore({
     state: {
         projects: null,
         project: null,
+        recalculatedProject: null,
         preloader: 0,
         newProjectId: null,
     },
@@ -15,6 +16,9 @@ export default createStore({
         },
         GET_PROJECT (state) {
             return state.project;
+        },
+        GET_RECALCULATED_PROJECT (state) {
+            return state.recalculatedProject;
         },
         GET_NEW_PROJECT_ID(state) {
             return state.newProjectId;
@@ -29,6 +33,9 @@ export default createStore({
         },
         SET_PROJECT(state, project) {
             state.project = project;
+        },
+        SET_RECALCULATED_PROJECT (state, project) {
+            state.recalculatedProject = project;
         },
         SET_NEW_PROJECT_ID(state, newProjectId) {
             state.newProjectId = newProjectId;
@@ -54,6 +61,7 @@ export default createStore({
             let result = await api.project.getProject(projectId, data);
             if (result.status) {
                 context.commit('SET_PROJECT', result.result);
+                context.commit('SET_RECALCULATED_PROJECT', result.result);
             }
             context.commit('PRELOADER_DECREMENT');
         },

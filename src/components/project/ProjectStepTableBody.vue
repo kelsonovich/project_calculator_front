@@ -72,10 +72,10 @@ export default {
     getCellType(step, weekNumber) {
       let background = '';
 
-      background = (weekNumber > step.start && weekNumber <= step.end) ? 'bg-primary' : '';
+      background = (weekNumber > step.start && weekNumber <= step.end) ? 'bg-work' : '';
       if (step.code === 'qa') {
         if (weekNumber > step.end) {
-          background = ((weekNumber >= (step.end + this.agreementWeeks - 1)) && (weekNumber <= (step.end + this.agreementWeeks))) ? 'bg-danger' : '';
+          background = ((weekNumber >= (step.end + this.agreementWeeks - 1)) && (weekNumber <= (step.end + this.agreementWeeks))) ? 'bg-agreement' : '';
         }
       }
 

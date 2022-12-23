@@ -2,7 +2,7 @@
   <div>
     <div class="container-fluid row">
       <div class="col-sm-6 mb-3">
-        <ProjectDateComponent :project="project" :isClient="false" @updateProject="updateProject"/>
+        <ProjectDateComponent :isClient="false" @updateProject="updateProject"/>
       </div>
       <div class="col-sm-6">
         <div class="row mb-3">

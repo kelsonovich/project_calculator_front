@@ -66,6 +66,6 @@ export default {
 
 <style scoped>
 .project__body {
-  /*max-height: 80vh;*/
+  min-height: 84vh;
 }
 </style>

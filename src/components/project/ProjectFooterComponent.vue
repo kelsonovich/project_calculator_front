@@ -19,7 +19,7 @@
       </li>
       <li class="nav-item" role="presentation">
         <button
-            class="nav-link" id="detalization-tab" data-bs-toggle="pill" data-bs-target="#detalization"
+            class="nav-link mb-3" id="detalization-tab" data-bs-toggle="pill" data-bs-target="#detalization"
             type="button" role="tab" aria-controls="detalization" aria-selected="false" tabindex="-1"
         >
           Детализация

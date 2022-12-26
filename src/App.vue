@@ -18,7 +18,6 @@
 <script>
 import HeaderTemplate from "@/components/template/Header";
 import PreloaderComponent from "@/components/ui/PreloaderComponent";
-import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default {
   name: 'App',

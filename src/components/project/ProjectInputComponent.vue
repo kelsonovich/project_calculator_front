@@ -28,12 +28,10 @@ export default {
   props: {
     input: Object
   },
-  data() {
-    return {
-      inputValue: this.input.value,
-    }
-  },
   computed: {
+    inputValue() {
+      return this.input.value;
+    },
     getClass() {
       let classes = [];
 

@@ -1,5 +1,5 @@
 <template>
-  <tbody v-if="rows">
+  <tbody v-if="prepareRows">
     <tr
         v-for="row in prepareRows"
         :key="row.id"
@@ -46,11 +46,17 @@ export default {
       rows: this.body
     }
   },
+  watch: {
+    body: function () {
+      console.log('BODY GAS BENN CHANGED')
+    }
+  },
   computed: {
     isTask() {
       return this.type === 'task';
     },
     prepareRows() {
+      console.log('prepareRows');
       return this.prepare(this.rows);
     },
   },

@@ -3,9 +3,9 @@
     <TableComponent
         v-if="project"
         :config="config"
-        :tasks="this.project.calculated"
-        :qa="project.qa"
-        :total="project.total.project"
+        :tasks="getTasks"
+        :qa="getQa"
+        :total="getTotal"
         @updateProject="update"
     />
   </div>
@@ -17,9 +17,6 @@ import TableComponent from "@/components/ui/table/TableComponent";
 export default {
   name: "ProjectDetalizationTableComponent",
   components: {TableComponent},
-  props: {
-    project: [Object, Array],
-  },
   data() {
     return {
       config: [
@@ -201,6 +198,20 @@ export default {
         },
       ]
     }
+  },
+  computed: {
+    getTotal() {
+      return this.project.total.project;
+    },
+    getQa() {
+      return this.project.qa;
+    },
+    getTasks() {
+      return this.project.calculated;
+    },
+    project() {
+      return this.$store.getters.GET_PROJECT;
+    },
   },
   methods: {
     update(){

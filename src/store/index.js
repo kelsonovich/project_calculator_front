@@ -14,16 +14,16 @@ export default createStore({
         GET_ALL_PROJECTS(state) {
             return state.projects;
         },
-        GET_PROJECT (state) {
+        GET_PROJECT(state) {
             return state.project;
         },
-        GET_RECALCULATED_PROJECT (state) {
+        GET_RECALCULATED_PROJECT(state) {
             return state.recalculatedProject;
         },
         GET_NEW_PROJECT_ID(state) {
             return state.newProjectId;
         },
-        PRELOADER (state) {
+        PRELOADER(state) {
             return state.preloader;
         },
     },
@@ -34,7 +34,7 @@ export default createStore({
         SET_PROJECT(state, project) {
             state.project = project;
         },
-        SET_RECALCULATED_PROJECT (state, project) {
+        SET_RECALCULATED_PROJECT(state, project) {
             state.recalculatedProject = project;
         },
         SET_NEW_PROJECT_ID(state, newProjectId) {
@@ -78,6 +78,7 @@ export default createStore({
             let result = await api.project.update(projectId, data);
             if (result.status) {
                 context.commit('SET_PROJECT', result.result);
+                console.log('PROJECT HAS BEEN UPDATED');
             }
             context.commit('PRELOADER_DECREMENT');
         },

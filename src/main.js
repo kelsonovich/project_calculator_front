@@ -6,6 +6,7 @@ import router from './router';
 import store from './store';
 import network from "@/api/network";
 import '@/assets/css/custom.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 network.configure();
 

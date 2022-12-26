@@ -12,7 +12,7 @@
       </div>
 
       <div class="tab-pane fade" id="detalization" role="tabpanel" aria-labelledby="detalization-tab" tabindex="0">
-        <ProjectDetalizationTableComponent :project="project" @updateProject="updateProject"/>
+        <ProjectDetalizationTableComponent @updateProject="updateProject"/>
       </div>
     </div>
   </div>
@@ -48,7 +48,11 @@ export default {
       return this.$store.getters.GET_PROJECT;
     },
   },
-  watch: {},
+  watch: {
+    '$store.state.project': function () {
+      // this.load();
+    }
+  },
   methods: {
     load() {
       if (this.$route.params && this.$route.params.projectId) {
@@ -58,7 +62,6 @@ export default {
     async updateProject(value) {
       console.log('ProjectComponent');
       await this.$store.dispatch('updateProject', {projectId: this.$route.params.projectId, data: value});
-      this.load();
     }
   }
 }

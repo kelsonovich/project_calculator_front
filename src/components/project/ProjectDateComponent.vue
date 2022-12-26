@@ -18,11 +18,14 @@ export default {
   },
   data() {
     return {
-      project: null
+      project: null,
+      projectConfig: {
+        start: null,
+        end: null,
+        duration: null,
+        price: null
+      },
     }
-  },
-  mounted() {
-    this.setProject();
   },
   computed: {
     getProjectStart() {
@@ -33,7 +36,7 @@ export default {
         readonly: this.isReadonly,
         type: 'date',
         class: ['mb-3']
-      }
+      };
     },
     getProjectEnd() {
       return {
@@ -43,7 +46,7 @@ export default {
         readonly: true,
         type: 'date',
         class: ['mb-3']
-      }
+      };
     },
     getProjectDuration() {
       return {
@@ -54,7 +57,7 @@ export default {
         readonly: true,
         type: 'string',
         class: ['mb-3']
-      }
+      };
     },
     getProjectPrice() {
       return {
@@ -65,8 +68,14 @@ export default {
         readonly: true,
         type: 'string',
         class: ['mb-3']
-      }
+      };
     },
+  },
+  mounted() {
+    this.$watch('$store.state.project', () => {
+      this.setProject();
+    });
+    this.setProject();
   },
   methods: {
     updateStartDate(value) {
@@ -74,8 +83,7 @@ export default {
     },
     setProject() {
       this.project = this.$store.getters.GET_PROJECT;
-      console.log(this.project.start);
-    }
+    },
   }
 }
 </script>

@@ -3,7 +3,7 @@
     <TableGanttComponent
         v-if="project"
         :config="config"
-        :steps="project.steps"
+        :steps="getSteps"
         :isClient="isClient"
         :projectLength="countWeeks"
         :agreementWeeks="project.agreementWeeks"
@@ -48,21 +48,7 @@ export default {
       ],
       config: [],
       countWeeks: 0,
-    }
-  },
-  watch: {
-    project: 'reload'
-  },
-  mounted() {
-    this.reload();
-  },
-  methods: {
-    reload() {
-      this.setConfig();
-      this.setWeeksInConfig();
-    },
-    setConfig() {
-      let additionalColumns = [
+      companyColumns: [
         {
           title: 'Трудозатраты',
           key: 'hours_min',
@@ -84,20 +70,20 @@ export default {
           },
         },
         {
-          title: 'Согласование',
+          title: 'Согла-сование',
           key: 'agreement',
           isEditable: true,
-          type: 'text',
+          type: 'number',
           align: {
             vertical: true,
             horizontal: true,
           },
         },
         {
-          title: 'Запараллеливание',
+          title: 'Запаралле-ливание',
           key: 'parallels',
           isEditable: true,
-          type: 'text',
+          type: 'number',
           align: {
             vertical: true,
             horizontal: true,
@@ -107,16 +93,6 @@ export default {
           title: 'Длит.этапа (неделей)',
           key: 'weeks',
           isEditable: false,
-          type: 'text',
-          align: {
-            vertical: true,
-            horizontal: true,
-          },
-        },
-        {
-          title: 'Кол-во сотруд. на этап',
-          key: 'employee_quantity',
-          isEditable: true,
           type: 'text',
           align: {
             vertical: true,
@@ -144,7 +120,7 @@ export default {
           },
         },
         {
-          title: 'Предварительная стоимость',
+          title: 'Предвари-тельная стоимость',
           key: 'price',
           isEditable: false,
           type: 'text',
@@ -153,20 +129,127 @@ export default {
             horizontal: true,
           },
         },
-      ];
-
+      ],
+      clientColumns: [
+        {
+          title: 'Трудозатраты',
+          key: 'hours_avg',
+          isEditable: false,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Кол-во сотруд. на этап',
+          key: 'employee_quantity',
+          isEditable: true,
+          type: 'number',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Согла-сование',
+          key: 'agreement',
+          isEditable: true,
+          type: 'number',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Запаралле-ливание',
+          key: 'parallels',
+          isEditable: true,
+          type: 'number',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Длит.этапа (неделей)',
+          key: 'weeks',
+          isEditable: false,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Начало этапа',
+          key: 'start_date',
+          isEditable: false,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Конец этапа',
+          key: 'end_date',
+          isEditable: false,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+        {
+          title: 'Предвари-тельная стоимость',
+          key: 'price',
+          isEditable: false,
+          type: 'text',
+          align: {
+            vertical: true,
+            horizontal: true,
+          },
+        },
+      ],
+    }
+  },
+  watch: {
+    project: 'reload'
+  },
+  mounted() {
+    this.reload();
+  },
+  computed: {
+    getSteps() {
+      return this.isClient ? this.project.client.steps : this.project.company.steps;
+    }
+  },
+  methods: {
+    reload() {
       this.config = JSON.parse(JSON.stringify(this.defaultConfig));
 
-      if (! this.isClient) {
-        additionalColumns.forEach(column => {
+      this.setConfig();
+      this.setWeeksInConfig();
+    },
+    setConfig() {
+      if (this.isClient) {
+        this.clientColumns.forEach(column => {
+          this.config.push(column);
+        });
+      } else {
+        this.companyColumns.forEach(column => {
           this.config.push(column);
         });
       }
 
     },
     setWeeksInConfig() {
+      let countWeeks = (this.isClient) ? this.project.client.countWeeks : this.project.company.countWeeks;
 
-      for (let i = 0; i < this.project.countWeeks + 2; i++) {
+      countWeeks *= 1.2;
+
+      for (let i = 0; i < countWeeks; i++) {
         let currentDate = new Date(this.project.start);
         currentDate.setDate(currentDate.getDate() + 7 * i);
 

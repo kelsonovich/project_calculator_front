@@ -57,6 +57,8 @@ export default {
 }
 
 .date {
-  width: 40px;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  margin: 0;
 }
 </style>

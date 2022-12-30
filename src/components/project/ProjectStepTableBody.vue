@@ -9,7 +9,7 @@
             v-for="cell in step"
             :key="cell.id"
             :cell="cell"
-            @update="updateStep"
+            @updateTask="updateStep"
         />
       </tr>
     </template>
@@ -33,11 +33,16 @@ export default {
     return {
       rowIndex: 0,
       lastStart: 0,
+      background: {
+        agreement: 'bg-agreement',
+        work: 'bg-work'
+      }
     }
   },
   methods: {
-    updateStep(value) {
-      this.$store.dispatch('updateStep', {stepId: value.id, data: value})
+    async updateStep(value) {
+      this.$store.dispatch('updateStep', {stepId: value.id, data: value});
+      await this.$store.dispatch('getProject', {projectId: this.$route.params.projectId});
     },
     prepare(steps) {
       let body = [];
@@ -55,7 +60,7 @@ export default {
           if (Object.prototype.hasOwnProperty.call(step, tableHeadCellCopy.key)) {
             value = step[tableHeadCellCopy.key];
           } else if (cell.classes && cell.classes.includes('date')) {
-            let weekNumber = (this.isClient) ? (index - 1) : (index - 10);
+            let weekNumber = index - 9;
 
             cell.classes.push(this.getCellType(step, weekNumber));
           }
@@ -71,12 +76,18 @@ export default {
     },
     getCellType(step, weekNumber) {
       let background = '';
+      background = (weekNumber > step.start && weekNumber <= step.end) ? this.background.work : '';
 
-      background = (weekNumber > step.start && weekNumber <= step.end) ? 'bg-work' : '';
-      if (step.code === 'qa') {
-        if (weekNumber > step.end) {
-          background = ((weekNumber >= (step.end + this.agreementWeeks - 1)) && (weekNumber <= (step.end + this.agreementWeeks))) ? 'bg-agreement' : '';
-        }
+      if (weekNumber > (step.end - step.agreement) && weekNumber <= step.end) {
+        background = this.background.agreement;
+      }
+
+      if (this.isClient) {
+        console.log(weekNumber);
+        console.log(step.start);
+        console.log(step.end);
+        console.log(step);
+        console.log(background);
       }
 
       return background

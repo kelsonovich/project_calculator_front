@@ -38,7 +38,7 @@ export default {
         label: 'Кол-во часов в неделю на 1 сотрудника',
         key: 'hours_per_week',
         value: this.project.hours_per_week,
-        readonly: true,
+        readonly: false,
         type: 'string'
       }
     }

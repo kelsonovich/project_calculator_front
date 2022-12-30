@@ -43,12 +43,12 @@ export default {
   },
   data() {
     return {
-      rows: this.body
+      rows: this.prepare(this.body)
     }
   },
   watch: {
     body: function () {
-      console.log('BODY GAS BENN CHANGED')
+      this.rows = this.prepare(this.body);
     }
   },
   computed: {
@@ -56,8 +56,7 @@ export default {
       return this.type === 'task';
     },
     prepareRows() {
-      console.log('prepareRows');
-      return this.prepare(this.rows);
+      return this.rows;
     },
   },
   methods: {
@@ -73,20 +72,16 @@ export default {
       return this.rows[this.rows.length - 1] === row;
     },
     deleteTask(row) {
-      let rows = this.rows;
-      console.log(rows.length);
-
-      rows.filter(function(task) {
-        return task !== row;
+      this.rows = this.rows.filter(function(task) {
+        return task[0].id !== row[0].id;
       });
-
-      console.log(rows.length);
     },
     createTask() {
-      let newTask = this.rows[this.rows.length - 1];
+      let newTask = JSON.parse(JSON.stringify(this.rows[this.rows.length - 1]));
 
       newTask.map(field => {
         field.value = field.type;
+        delete field.id;
 
         if (field.isEditable) {
           field.value = (field.type === 'text') ? '' : 0;
@@ -108,6 +103,7 @@ export default {
 
       let body = [];
       tasks.forEach(task => {
+
         let row = [];
         this.config.forEach(tableHeadCell => {
           let tableHeadCellCopy = JSON.parse(JSON.stringify(tableHeadCell));

@@ -1,9 +1,13 @@
 <template>
   <div v-if="project">
-    <ProjectDescriptionComponent :description="project.description" @updateDescription="updateProject"/>
+    <div class="container-fluid row mb-3">
 
-    <div class="container-fluid row col-xl-4 col-md-12 mb-3">
-      <ProjectDateComponent :project="project" :isReadonly="true" @updateStartDate="updateProject"/>
+      <div class="col-4">
+        <ProjectDateComponent :project="project" :isReadonly="true" :isClient="true" @updateStartDate="updateProject"/>
+      </div>
+      <div class="col-8">
+        <ProjectDescriptionComponent :project="project" @updateDescription="updateProject"/>
+      </div>
     </div>
 
     <ProjectClientTableComponent :project="project" :isClient="true"/>

@@ -1,19 +1,33 @@
 <template>
-  <div class="card card-body mb-3" v-if="isShowNeed">
-    <p>{{ description }}</p>
+  <div class="card card-body h-100">
+    <ProjectInputComponent :input="getDescriptionConfig" @update="update1"/>
   </div>
 </template>
 
 <script>
+import ProjectInputComponent from "@/components/project/ProjectInputComponent";
 export default {
   name: "ProjectDescriptionComponent",
+  components: {ProjectInputComponent},
   props: {
-    description: String
+    project: Object
   },
   computed: {
-    isShowNeed(){
-      return this.description && this.description.length > 0;
+    getDescriptionConfig() {
+      return {
+        label: 'Описание:',
+        key: 'description',
+        value: this.project.description,
+        readonly: false,
+        type: 'long_text',
+        rows: 16,
+      };
     }
+  },
+  methods: {
+    update1(value) {
+      this.$emit('updateDescription', value);
+    },
   }
 }
 </script>

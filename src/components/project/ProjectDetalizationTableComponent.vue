@@ -201,7 +201,7 @@ export default {
   },
   computed: {
     getTotal() {
-      return this.project.total.project;
+      return this.project.total.company.project;
     },
     getQa() {
       return this.project.qa;

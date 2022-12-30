@@ -4,7 +4,7 @@
 
     <div class="tab-content" id="detalizationTabContent">
       <div class="tab-pane fade show active" id="client" role="tabpanel" aria-labelledby="client-tab" tabindex="0">
-        <ProjectClientTabComponent :project="project"/>
+        <ProjectClientTabComponent :project="project" @updateProject="updateProject"/>
       </div>
 
       <div class="tab-pane fade" id="scid" role="tabpanel" aria-labelledby="scid-tab" tabindex="0">

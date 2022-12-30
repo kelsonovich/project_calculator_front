@@ -1,22 +1,36 @@
 <template>
   <div :class="input.class" v-if="input">
     <label
-        v-if="input.label"
+        v-if="input.label && !isTextarea"
         :for="input.key"
         class="form-label mb-2"
     >
       {{ input.label }}
     </label>
-    <input
-        :id="input.key"
-        :type="input.type"
-        :class="getClass"
-        :readonly="input.readonly"
-        :disabled="input.readonly"
-        v-model="inputValue"
-        @change="setValue"
-        v-imask="getMask()"
-    >
+    <template v-if="isTextarea">
+      <textarea
+          :id="input.key"
+          :class="getClass"
+          :readonly="input.readonly"
+          :disabled="input.readonly"
+          v-model="inputValue"
+          @change="setValue"
+          :rows="input.rows"
+          placeholder="Описание проекта..."
+      > </textarea>
+    </template>
+    <template v-else>
+      <input
+          :id="input.key"
+          :type="input.type"
+          :class="getClass"
+          :readonly="input.readonly"
+          :disabled="input.readonly"
+          v-model="inputValue"
+          @change="setValue"
+          v-imask="getMask()"
+      >
+    </template>
   </div>
 </template>
 
@@ -43,7 +57,10 @@ export default {
       }
 
       return classes;
-    }
+    },
+    isTextarea() {
+      return this.input.type === 'long_text';
+    },
   },
   methods: {
     setValue(event) {
@@ -64,7 +81,9 @@ export default {
         mask = {
           mask: Number,
           scale: 2,
-          radix: '.'
+          radix: '.',
+          min: -10000,
+          max: 10000
         };
       }
 

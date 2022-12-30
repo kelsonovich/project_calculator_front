@@ -25,8 +25,6 @@ export default {
   methods: {
     update(value) {
       value.id = this.cell.id;
-      console.log('TableCellComponent');
-
       this.$emit('updateTask', value);
     },
     classes(cell) {

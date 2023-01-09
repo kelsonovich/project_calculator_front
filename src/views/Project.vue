@@ -1,6 +1,17 @@
 <template>
   <div v-if="project" class="project__body">
-    <TitleUI :title="project.title"/>
+    <div class="row d-flex align-items-center">
+      <div class="col-9">
+        <TitleUI :title="project.title"/>
+      </div>
+      <div class="col">
+        <ClearChangeButton />
+      </div>
+      <div class="col">
+        <ProjectUpdateButton />
+      </div>
+    </div>
+
 
     <div class="tab-content" id="detalizationTabContent">
       <div class="tab-pane fade show active" id="client" role="tabpanel" aria-labelledby="client-tab" tabindex="0">
@@ -25,10 +36,14 @@ import ProjectFooterComponent from "@/components/project/ProjectFooterComponent"
 import ProjectDetalizationTableComponent from "@/components/project/ProjectDetalizationTableComponent";
 import ProjectClientTabComponent from "@/components/project/ProjectClientTabComponent";
 import ProjectCompanyTabComponent from "@/components/project/ProjectCompanyTabComponent";
+import ProjectUpdateButton from "@/components/project/ProjectUpdateButton";
+import ClearChangeButton from "@/components/project/ClearChangeButton";
 
 export default {
   name: "ProjectComponent",
   components: {
+    ClearChangeButton,
+    ProjectUpdateButton,
     ProjectCompanyTabComponent,
     ProjectClientTabComponent,
     ProjectDetalizationTableComponent,

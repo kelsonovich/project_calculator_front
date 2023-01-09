@@ -46,8 +46,15 @@ export default createStore({
         PRELOADER_DECREMENT(state) {
             state.preloader--;
         },
+        CLEAR_PROJECT(state) {
+            // state.project = state.recalculatedProject;
+            state.recalculatedProject = state.project;
+        }
     },
     actions: {
+        clearProject(context) {
+            context.commit('CLEAR_PROJECT');
+        },
         async getAllProjects(context) {
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.getAll();

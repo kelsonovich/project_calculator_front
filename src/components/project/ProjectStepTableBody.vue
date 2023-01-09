@@ -82,14 +82,6 @@ export default {
         background = this.background.agreement;
       }
 
-      if (this.isClient) {
-        console.log(weekNumber);
-        console.log(step.start);
-        console.log(step.end);
-        console.log(step);
-        console.log(background);
-      }
-
       return background
     }
   }

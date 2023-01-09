@@ -1,12 +1,12 @@
 <template>
   <tbody v-if="prepareRows">
     <tr
-        v-for="row in prepareRows"
-        :key="row.id"
+        v-for="(row) in prepareRows"
+        :key="row[0].id"
     >
       <TableCellComponent
-          v-for="cell in row"
-          :key="cell.id"
+          v-for="(cell) in row"
+          :key="row[0].id + cell.title"
           :cell="cell"
           :isAdditional="isAdditional"
           :title="title"
@@ -72,9 +72,11 @@ export default {
       return this.rows[this.rows.length - 1] === row;
     },
     deleteTask(row) {
-      this.rows = this.rows.filter(function(task) {
-        return task[0].id !== row[0].id;
-      });
+      if (this.rows.length > 1) {
+        this.rows = this.rows.filter(function(task) {
+          return task !== row;
+        });
+      }
     },
     createTask() {
       let newTask = JSON.parse(JSON.stringify(this.rows[this.rows.length - 1]));

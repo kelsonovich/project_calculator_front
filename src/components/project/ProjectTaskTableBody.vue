@@ -30,6 +30,7 @@
 
 <script>
 import TableCellComponent from "@/components/ui/table/cell/TableCellComponent";
+import utils from "@/assets/js/utils";
 
 export default {
   name: "ProjectTaskTableBody",
@@ -62,10 +63,19 @@ export default {
   methods: {
     update(value) {
       if (this.type === 'task') {
-        console.log('ProjectTaskTableBody');
+        let tasks = this.body;
 
-        this.$store.dispatch('updateTask', {taskId: value.id, data: value});
-        this.$emit('updateProject');
+        tasks.forEach(task => {
+          if (Number(task.id) === Number(value.id)) {
+            for (let key in value) {
+              if (utils.hasProperty(task, key)) {
+                task[key] = value[key];
+              }
+            }
+          }
+        });
+
+        this.$store.dispatch('changeTasks', {tasks: tasks});
       }
     },
     isLast(row) {
@@ -74,6 +84,8 @@ export default {
     deleteTask(row) {
       if (this.rows.length > 1) {
         this.rows = this.rows.filter(function(task) {
+          console.log(task);
+
           return task !== row;
         });
       }

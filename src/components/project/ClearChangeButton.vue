@@ -12,6 +12,7 @@ export default {
   methods: {
     clearProject() {
       this.$store.dispatch('clearProject');
+      console.log('clear project');
     }
   }
 }

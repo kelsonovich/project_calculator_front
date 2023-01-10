@@ -25,9 +25,10 @@ export default {
     total: [Object, Array],
   },
   methods: {
-    update() {
+    update(value) {
       console.log('TableComponent');
-      this.$emit('updateProject');
+      console.log(value);
+      // this.$emit('updateProject');
     }
   }
 }

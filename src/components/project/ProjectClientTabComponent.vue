@@ -3,10 +3,10 @@
     <div class="container-fluid row mb-3">
 
       <div class="col-4">
-        <ProjectDateComponent :project="project" :isReadonly="true" :isClient="true" @updateStartDate="updateProject"/>
+        <ProjectDateComponent :project="project" :isReadonly="true" :isClient="true" @changeProject="calculate"/>
       </div>
       <div class="col-8">
-        <ProjectDescriptionComponent :project="project" @updateDescription="updateProject"/>
+        <ProjectDescriptionComponent :project="project" @changeDescription="calculate"/>
       </div>
     </div>
 
@@ -26,8 +26,10 @@ export default {
     project: Object
   },
   methods: {
-    updateProject(value) {
-      this.$emit('updateProject', value);
+    calculate(value) {
+      console.log('ProjectClientTabComponent');
+      console.log(value);
+      // this.$emit('calculateProject', value);
     }
   }
 }

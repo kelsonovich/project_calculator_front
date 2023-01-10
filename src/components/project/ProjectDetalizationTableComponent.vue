@@ -210,7 +210,7 @@ export default {
       return this.project.calculated;
     },
     project() {
-      return this.$store.getters.GET_PROJECT;
+      return this.$store.getters.GET_RECALCULATED_PROJECT;
     },
   },
   methods: {

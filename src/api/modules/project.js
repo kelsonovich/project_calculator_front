@@ -42,4 +42,12 @@ export default class Project {
         }
         return res
     }
+
+    static async calculate(project) {
+        let res = await network.post(this.route + '/calculate', {project: project});
+        if (res.isSuccess) {
+            // console.log('api_form', res)
+        }
+        return res
+    }
 }

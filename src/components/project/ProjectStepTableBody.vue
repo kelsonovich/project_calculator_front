@@ -41,8 +41,7 @@ export default {
   },
   methods: {
     async updateStep(value) {
-      this.$store.dispatch('updateStep', {stepId: value.id, data: value});
-      await this.$store.dispatch('getProject', {projectId: this.$route.params.projectId});
+      this.$store.dispatch('changeSteps', {step: value});
     },
     prepare(steps) {
       let body = [];

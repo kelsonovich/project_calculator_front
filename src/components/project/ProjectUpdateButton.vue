@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="btn btn-outline-success">
+    <button class="btn btn-outline-success" @click="updateProject">
       Сохранить
     </button>
   </div>
@@ -8,7 +8,12 @@
 
 <script>
 export default {
-  name: "ProjectUpdateButton"
+  name: "ProjectUpdateButton",
+  methods: {
+    updateProject() {
+      console.log('clear project');
+    }
+  }
 }
 </script>
 

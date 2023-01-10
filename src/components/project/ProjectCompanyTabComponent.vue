@@ -2,11 +2,11 @@
   <div>
     <div class="container-fluid row">
       <div class="col-sm-6 mb-3">
-        <ProjectDateComponent :isClient="false" @updateProject="updateProject"/>
+        <ProjectDateComponent :isClient="false" @changeProject="calculate"/>
       </div>
       <div class="col-sm-6">
         <div class="row mb-3">
-          <ProjectPriceCardComponent :price="project.price" @updateProject="updateProject"/>
+          <ProjectPriceCardComponent :price="project.price"/>
         </div>
         <div class="row mb-3">
           <div class="card card-body">
@@ -44,8 +44,9 @@ export default {
     }
   },
   methods: {
-    updateProject(value) {
-      this.$emit('updateProject', value);
+    calculate(value) {
+      console.log('ProjectCompanyTabComponent');
+      this.$emit('changeProject', value);
     },
   }
 }

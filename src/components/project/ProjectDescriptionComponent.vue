@@ -1,6 +1,6 @@
 <template>
   <div class="card card-body h-100">
-    <ProjectInputComponent :input="getDescriptionConfig" @update="update1"/>
+    <ProjectInputComponent :input="getDescriptionConfig" @update="updateDescription"/>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
     }
   },
   methods: {
-    update1(value) {
+    updateDescription(value) {
       this.$emit('updateDescription', value);
     },
   }

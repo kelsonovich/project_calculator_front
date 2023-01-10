@@ -12,18 +12,17 @@
       </div>
     </div>
 
-
     <div class="tab-content" id="detalizationTabContent">
       <div class="tab-pane fade show active" id="client" role="tabpanel" aria-labelledby="client-tab" tabindex="0">
-        <ProjectClientTabComponent :project="project" @updateProject="updateProject"/>
+        <ProjectClientTabComponent :project="project" @changeProject="calculate"/>
       </div>
 
       <div class="tab-pane fade" id="scid" role="tabpanel" aria-labelledby="scid-tab" tabindex="0">
-        <ProjectCompanyTabComponent :project="project" @updateProject="updateProject"/>
+        <ProjectCompanyTabComponent :project="project" @changeProject="calculate"/>
       </div>
 
       <div class="tab-pane fade" id="detalization" role="tabpanel" aria-labelledby="detalization-tab" tabindex="0">
-        <ProjectDetalizationTableComponent @updateProject="updateProject"/>
+        <ProjectDetalizationTableComponent @updateProject="calculate"/>
       </div>
     </div>
   </div>
@@ -55,18 +54,12 @@ export default {
     }
   },
   mounted() {
-    console.log('mounted');
     this.load();
   },
   computed: {
     project() {
-      return this.$store.getters.GET_PROJECT;
+      return this.$store.getters.GET_RECALCULATED_PROJECT;
     },
-  },
-  watch: {
-    '$store.state.project': function () {
-      // this.load();
-    }
   },
   methods: {
     load() {
@@ -74,9 +67,11 @@ export default {
         this.$store.dispatch('getProject', {projectId: this.$route.params.projectId});
       }
     },
-    async updateProject(value) {
+    calculate(value) {
       console.log('ProjectComponent');
-      await this.$store.dispatch('updateProject', {projectId: this.$route.params.projectId, data: value});
+      console.log(value);
+      this.$store.dispatch('changeProject', {data: value});
+      // await this.$store.dispatch('updateProject', {projectId: this.$route.params.projectId, data: value});
     }
   }
 }

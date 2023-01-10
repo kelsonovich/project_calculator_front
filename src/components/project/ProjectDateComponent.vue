@@ -1,10 +1,10 @@
 <template>
   <div class="card card-body h-100" v-if="project">
-    <ProjectInputComponent :input="getProjectStart" @update="updateStartDate"/>
+    <ProjectInputComponent :input="getProjectStart" @update="calculate"/>
     <ProjectInputComponent :input="getProjectEnd"/>
     <ProjectInputComponent :input="getProjectDuration"/>
     <ProjectInputComponent :input="getProjectPrice"/>
-    <ProjectInputComponent v-if="!isReadonly" :input="getProjectClientBuffer" @update="updateStartDate"/>
+    <ProjectInputComponent v-if="!isReadonly" :input="getProjectClientBuffer" @update="calculate"/>
   </div>
 </template>
 
@@ -85,17 +85,18 @@ export default {
     },
   },
   mounted() {
-    this.$watch('$store.state.project', () => {
+    this.$watch('$store.state.recalculatedProject', () => {
       this.setProject();
     });
     this.setProject();
   },
   methods: {
-    updateStartDate(value) {
-      this.$emit('updateProject', value);
+    calculate(value) {
+      console.log('ProjectDateComponent');
+      this.$emit('changeProject', value);
     },
     setProject() {
-      this.project = this.$store.getters.GET_PROJECT;
+      this.project = this.$store.getters.GET_RECALCULATED_PROJECT;
     },
   }
 }

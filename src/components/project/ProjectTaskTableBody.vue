@@ -107,6 +107,8 @@ export default {
       this.rows.push(newTask);
     },
     prepare(tasks) {
+      console.log(tasks);
+
       if (tasks.length === 0) {
         for (let i = 0; i < this.config.length; i++) {
           tasks.push({});

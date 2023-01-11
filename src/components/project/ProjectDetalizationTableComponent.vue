@@ -5,6 +5,7 @@
         :config="config"
         :tasks="getTasks"
         :qa="getQa"
+        :steps="getSteps"
         :total="getTotal"
         @updateProject="update"
     />
@@ -201,13 +202,16 @@ export default {
   },
   computed: {
     getTotal() {
-      return this.project.total.company.project;
+      return this.project.calculated.total;
+    },
+    getSteps() {
+      return this.project.calculated.steps;
     },
     getQa() {
-      return this.project.qa;
+      return this.project.calculated.qa;
     },
     getTasks() {
-      return this.project.calculated;
+      return this.project.calculated.tasks;
     },
     project() {
       return this.$store.getters.GET_RECALCULATED_PROJECT;

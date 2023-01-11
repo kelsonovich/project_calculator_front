@@ -46,7 +46,7 @@ export default {
     prepare(steps) {
       let body = [];
       steps.forEach(step => {
-        if (Number(step.hours_min) === 0 || (this.isClient && step.code === 'buffer')) {
+        if (Number(step.hours_avg) === 0 || (this.isClient && step.code === 'buffer')) {
           return;
         }
 

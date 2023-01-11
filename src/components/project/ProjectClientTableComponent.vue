@@ -51,7 +51,7 @@ export default {
       companyColumns: [
         {
           title: 'Трудозатраты',
-          key: 'hours_min',
+          key: 'hours_avg',
           isEditable: false,
           type: 'text',
           align: {

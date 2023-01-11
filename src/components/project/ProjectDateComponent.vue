@@ -35,7 +35,7 @@ export default {
       return {
         label: 'Дата начала проекта',
         key: 'start',
-        value: this.project.start,
+        value: (this.isClient) ? this.project.client.start : this.project.company.start,
         readonly: this.isReadonly,
         type: 'date',
         class: ['mb-3']
@@ -67,7 +67,7 @@ export default {
         label: 'Предварительная стоимость разработки\n' +
             '*для стандартных условий Договора',
         key: 'price',
-        value: (this.isClient) ? this.project.total.client.price : this.project.total.company.price,
+        value: (this.isClient) ? this.project.client.price : this.project.company.price,
         readonly: true,
         type: 'string',
         class: ['mb-3']

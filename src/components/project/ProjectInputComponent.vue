@@ -44,7 +44,12 @@ export default {
   },
   computed: {
     inputValue() {
-      return this.input.value;
+      let value = this.input.value;
+      if (this.isDate()) {
+        // value = (new Date(value)).toLocaleString();
+      }
+
+      return value;
     },
     getClass() {
       let classes = [];
@@ -91,6 +96,9 @@ export default {
     },
     isNumber() {
       return this.input.type === 'number';
+    },
+    isDate() {
+      return this.input.type === 'date';
     },
   },
   directives: {

@@ -2,7 +2,7 @@
   <table class="table table-hover table-responsive-xl">
     <TableHead :config="config" :thBgClass="'table-primary'"/>
 
-    <ProjectTaskTableBody :config="config" :body="tasks"   :type="'task'" @updateProject="update"/>
+    <ProjectTaskTableBody :config="config" :body="tasks" :type="'task'" @updateProject="update"/>
     <ProjectTaskTableBody :config="config" :body="qa"    :isAdditional="true" :title="'Тестирование'"/>
     <ProjectTaskTableBody :config="config" :body="steps" :isAdditional="true" :title="'Итого этапы'"/>
     <ProjectTaskTableBody :config="config" :body="total" :isAdditional="true" :title="'Итого'"/>

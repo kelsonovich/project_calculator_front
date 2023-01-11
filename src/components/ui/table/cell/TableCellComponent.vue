@@ -25,6 +25,7 @@ export default {
   methods: {
     update(value) {
       value.id = this.cell.id;
+      value.innerIndex = this.cell.innerIndex;
       this.$emit('updateTask', value);
     },
     classes(cell) {

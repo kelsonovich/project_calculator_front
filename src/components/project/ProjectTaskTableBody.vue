@@ -1,11 +1,11 @@
 <template>
   <tbody v-if="prepareRows">
     <tr
-        v-for="(row) in prepareRows"
+        v-for="(row, index) in prepareRows"
         :key="row[0].id"
     >
       <TableCellComponent
-          v-for="(cell) in row"
+          v-for="(cell) in getRow(row, index)"
           :key="row[0].id + cell.title"
           :cell="cell"
           :isAdditional="isAdditional"
@@ -14,11 +14,11 @@
       />
       <template v-if="isTask">
         <td>
-          <button class="btn btn-outline-danger" @click="deleteTask(row)">
+          <button class="btn btn-outline-danger" @click="deleteTask(index)">
             <i class="bi bi-trash3"></i>
           </button>
         </td>
-        <td v-if="isLast(row)">
+        <td v-if="isLast(index)">
           <button class="btn btn-outline-success" @click="createTask()">
             <i class="bi bi-plus-lg"></i>
           </button>
@@ -44,12 +44,12 @@ export default {
   },
   data() {
     return {
-      rows: this.prepare(this.body)
+      rows: this.body,
     }
   },
   watch: {
     body: function () {
-      this.rows = this.prepare(this.body);
+      this.rows = this.body;
     }
   },
   computed: {
@@ -57,13 +57,20 @@ export default {
       return this.type === 'task';
     },
     prepareRows() {
-      return this.rows;
+      return this.prepare(this.rows);
     },
   },
   methods: {
+    getRow (row, index) {
+      row.forEach(cell => {
+        cell.innerIndex = index;
+      })
+
+      return row;
+    },
     update(value) {
       if (this.type === 'task') {
-        let tasks = this.body;
+        let tasks = this.rows;
 
         tasks.forEach(task => {
           if (Number(task.id) === Number(value.id)) {
@@ -78,37 +85,28 @@ export default {
         this.$store.dispatch('changeTasks', {tasks: tasks});
       }
     },
-    isLast(row) {
-      return this.rows[this.rows.length - 1] === row;
+    isLast(index) {
+      return (this.rows.length - 1) === index;
     },
-    deleteTask(row) {
-      if (this.rows.length > 1) {
-        this.rows = this.rows.filter(function(task) {
-          console.log(task);
+    deleteTask(index) {
+      this.rows.splice(index, 1);
 
-          return task !== row;
-        });
-      }
+      this.$store.dispatch('changeTasks', {tasks: this.rows});
     },
     createTask() {
       let newTask = JSON.parse(JSON.stringify(this.rows[this.rows.length - 1]));
 
-      newTask.map(field => {
-        field.value = field.type;
-        delete field.id;
-
-        if (field.isEditable) {
-          field.value = (field.type === 'text') ? '' : 0;
-        } else {
-          field.value = '-';
+      for (let key in newTask) {
+        if (key !== 'id') {
+          newTask[key] = '';
         }
-      });
+      }
 
       this.rows.push(newTask);
+
+      this.$store.dispatch('changeTasks', {tasks: this.rows});
     },
     prepare(tasks) {
-      console.log(tasks);
-
       if (tasks.length === 0) {
         for (let i = 0; i < this.config.length; i++) {
           tasks.push({});
@@ -138,6 +136,8 @@ export default {
           cell.id = task.id;
           cell.value = value;
           row.push(cell);
+
+          console.log(cell);
         });
 
         body.push(row);

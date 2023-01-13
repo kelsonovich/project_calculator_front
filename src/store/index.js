@@ -55,7 +55,10 @@ export default createStore({
             state.preloader--;
         },
         CLEAR_PROJECT(state) {
+            console.log(state.project);
+            state.recalculatedProject = null;
             state.recalculatedProject = state.project;
+            console.log(state.recalculatedProject);
         },
         CHANGE_PROJECT (state, data) {
             for (let key in data) {
@@ -97,13 +100,15 @@ export default createStore({
             if (result.status) {
                 context.commit('SET_RECALCULATED_PROJECT', result.result);
             }
-            context.commit('PRELOADER_DECREMENT')
+            context.commit('PRELOADER_DECREMENT');
         },
         async changeProject(context, {data}) {
             context.commit('CHANGE_PROJECT', data);
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.calculate(context.getters.GET_INTERMEDIATE_PROJECT);
             if (result.status) {
+                console.log(context.getters.GET_PROJECT);
+
                 context.commit('SET_RECALCULATED_PROJECT', result.result);
             }
             context.commit('PRELOADER_DECREMENT');
@@ -122,6 +127,8 @@ export default createStore({
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.calculate(context.getters.GET_INTERMEDIATE_PROJECT);
             if (result.status) {
+                console.log(context.getters.GET_PROJECT);
+
                 context.commit('SET_RECALCULATED_PROJECT', result.result);
             }
             context.commit('PRELOADER_DECREMENT');
@@ -138,9 +145,9 @@ export default createStore({
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.getProject(projectId, data);
             if (result.status) {
-                context.commit('SET_PROJECT', result.result);
-                context.commit('SET_RECALCULATED_PROJECT', result.result);
-                context.commit('SET_INTERMEDIATE_PROJECT', result.result);
+                context.commit('SET_PROJECT', JSON.parse(JSON.stringify(result.result)));
+                context.commit('SET_RECALCULATED_PROJECT', JSON.parse(JSON.stringify(result.result)));
+                context.commit('SET_INTERMEDIATE_PROJECT', JSON.parse(JSON.stringify(result.result)));
             }
             context.commit('PRELOADER_DECREMENT');
         },

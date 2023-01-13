@@ -44,12 +44,7 @@ export default {
   },
   computed: {
     inputValue() {
-      let value = this.input.value;
-      if (this.isDate()) {
-        // value = (new Date(value)).toLocaleString();
-      }
-
-      return value;
+      return this.input.value;
     },
     getClass() {
       let classes = [];

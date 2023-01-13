@@ -5,7 +5,7 @@
         :key="row[0].id"
     >
       <TableCellComponent
-          v-for="(cell) in getRow(row, index)"
+          v-for="(cell) in row"
           :key="row[0].id + cell.title"
           :cell="cell"
           :isAdditional="isAdditional"
@@ -61,19 +61,12 @@ export default {
     },
   },
   methods: {
-    getRow (row, index) {
-      row.forEach(cell => {
-        cell.innerIndex = index;
-      })
-
-      return row;
-    },
     update(value) {
       if (this.type === 'task') {
         let tasks = this.rows;
 
         tasks.forEach(task => {
-          if (Number(task.id) === Number(value.id)) {
+          if (Number(task.innerIndex) === Number(value.innerIndex)) {
             for (let key in value) {
               if (utils.hasProperty(task, key)) {
                 task[key] = value[key];
@@ -96,10 +89,12 @@ export default {
     createTask() {
       let newTask = JSON.parse(JSON.stringify(this.rows[this.rows.length - 1]));
 
+      if (newTask.id !== undefined) {
+        delete newTask.id;
+      }
+
       for (let key in newTask) {
-        if (key !== 'id') {
-          newTask[key] = '';
-        }
+        newTask[key] = '';
       }
 
       this.rows.push(newTask);
@@ -107,6 +102,10 @@ export default {
       this.$store.dispatch('changeTasks', {tasks: this.rows});
     },
     prepare(tasks) {
+      this.rows.forEach((row, index) => {
+        row.innerIndex = index;
+      });
+
       if (tasks.length === 0) {
         for (let i = 0; i < this.config.length; i++) {
           tasks.push({});
@@ -116,8 +115,7 @@ export default {
       }
 
       let body = [];
-      tasks.forEach(task => {
-
+      tasks.forEach((task, index) => {
         let row = [];
         this.config.forEach(tableHeadCell => {
           let tableHeadCellCopy = JSON.parse(JSON.stringify(tableHeadCell));
@@ -135,9 +133,8 @@ export default {
 
           cell.id = task.id;
           cell.value = value;
+          cell.innerIndex = index;
           row.push(cell);
-
-          console.log(cell);
         });
 
         body.push(row);

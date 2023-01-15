@@ -3,6 +3,7 @@
     <tr
         v-for="(row, index) in prepareRows"
         :key="row[0].id"
+        class=""
     >
       <TableCellComponent
           v-for="(cell) in row"
@@ -13,13 +14,13 @@
           @updateTask="update"
       />
       <template v-if="isTask">
-        <td>
-          <button class="btn btn-outline-danger" @click="deleteTask(index)">
+        <td class="align-middle text-center">
+          <button class="btn btn-outline-danger" @click="deleteRow(index)">
             <i class="bi bi-trash3"></i>
           </button>
         </td>
-        <td v-if="isLast(index)">
-          <button class="btn btn-outline-success" @click="createTask()">
+        <td v-if="isLast(index)" class="align-middle text-center">
+          <button class="btn btn-outline-success" @click="createRow()">
             <i class="bi bi-plus-lg"></i>
           </button>
         </td>
@@ -66,7 +67,7 @@ export default {
         let tasks = this.rows;
 
         tasks.forEach(task => {
-          if (Number(task.innerIndex) === Number(value.innerIndex)) {
+          if (Number(task.innerIndex) === Number(value.innerIndex) || Number(task.id) === Number(value.id)) {
             for (let key in value) {
               if (utils.hasProperty(task, key)) {
                 task[key] = value[key];
@@ -75,18 +76,20 @@ export default {
           }
         });
 
-        this.$store.dispatch('changeTasks', {tasks: tasks});
+        this.$emit('changeProject', tasks);
       }
     },
     isLast(index) {
       return (this.rows.length - 1) === index;
     },
-    deleteTask(index) {
-      this.rows.splice(index, 1);
-
-      this.$store.dispatch('changeTasks', {tasks: this.rows});
+    getColspanForDelete(index) {
+      return (this.isLast(index)) ? 1 : 2;
     },
-    createTask() {
+    deleteRow(index) {
+      this.rows.splice(index, 1);
+      this.$emit('changeProject', this.rows);
+    },
+    createRow() {
       let newTask = JSON.parse(JSON.stringify(this.rows[this.rows.length - 1]));
 
       if (newTask.id !== undefined) {
@@ -99,7 +102,7 @@ export default {
 
       this.rows.push(newTask);
 
-      this.$store.dispatch('changeTasks', {tasks: this.rows});
+      this.$emit('changeProject', this.rows);
     },
     prepare(tasks) {
       this.rows.forEach((row, index) => {

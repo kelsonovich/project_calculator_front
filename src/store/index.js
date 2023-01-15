@@ -55,10 +55,8 @@ export default createStore({
             state.preloader--;
         },
         CLEAR_PROJECT(state) {
-            console.log(state.project);
-            state.recalculatedProject = null;
+            state.intermediateProject = state.project;
             state.recalculatedProject = state.project;
-            console.log(state.recalculatedProject);
         },
         CHANGE_PROJECT (state, data) {
             for (let key in data) {
@@ -84,6 +82,9 @@ export default createStore({
                     }
                 }
             });
+        },
+        CHANGE_OPTIONS (state, options) {
+            state.intermediateProject.options = options;
         },
         CHANGE_TASKS (state, tasks) {
             state.intermediateProject.tasks = tasks;
@@ -124,6 +125,17 @@ export default createStore({
         },
         async changeTasks(context, {tasks}) {
             context.commit('CHANGE_TASKS', tasks);
+            context.commit('PRELOADER_INCREMENT');
+            let result = await api.project.calculate(context.getters.GET_INTERMEDIATE_PROJECT);
+            if (result.status) {
+                console.log(context.getters.GET_PROJECT);
+
+                context.commit('SET_RECALCULATED_PROJECT', result.result);
+            }
+            context.commit('PRELOADER_DECREMENT');
+        },
+        async changeOptions(context, {options}) {
+            context.commit('CHANGE_OPTIONS', options);
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.calculate(context.getters.GET_INTERMEDIATE_PROJECT);
             if (result.status) {

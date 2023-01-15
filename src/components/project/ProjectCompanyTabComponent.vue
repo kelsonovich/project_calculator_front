@@ -17,6 +17,8 @@
     </div>
 
     <ProjectClientTableComponent :project="project" :isClient="false"/>
+
+    <OptionTableComponent :title="'Дополнения'" :project="project" :isClient="false"/>
   </div>
 </template>
 
@@ -25,10 +27,13 @@ import ProjectDateComponent from "@/components/project/ProjectDateComponent";
 import ProjectPriceCardComponent from "@/components/project/ProjectPriceCardComponent";
 import ProjectInputComponent from "@/components/project/ProjectInputComponent";
 import ProjectClientTableComponent from "@/components/project/ProjectClientTableComponent";
+import OptionTableComponent from "@/components/project/OptionTableComponent";
 
 export default {
   name: "ProjectCompanyTabComponent",
-  components: {ProjectClientTableComponent, ProjectInputComponent, ProjectPriceCardComponent, ProjectDateComponent},
+  components: {
+    OptionTableComponent,
+    ProjectClientTableComponent, ProjectInputComponent, ProjectPriceCardComponent, ProjectDateComponent},
   props: {
     project: Object
   },

@@ -7,7 +7,6 @@
         :qa="getQa"
         :steps="getSteps"
         :total="getTotal"
-        @updateProject="update"
     />
   </div>
 </template>
@@ -217,12 +216,6 @@ export default {
       return this.$store.getters.GET_RECALCULATED_PROJECT;
     },
   },
-  methods: {
-    update(){
-      console.log('ProjectDetalizationTableComponent');
-      this.$emit('updateProject');
-    }
-  }
 }
 </script>
 

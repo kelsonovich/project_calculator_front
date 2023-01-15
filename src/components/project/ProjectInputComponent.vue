@@ -82,8 +82,8 @@ export default {
           mask: Number,
           scale: 2,
           radix: '.',
-          min: -10000,
-          max: 10000
+          min: -10000000,
+          max: 10000000
         };
       }
 

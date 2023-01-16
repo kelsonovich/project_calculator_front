@@ -96,10 +96,10 @@ export default createStore({
         },
         SET_USER(state, data) {
             if (data) {
-                state.userData = data.user
+                state.userData = data
             }
-            if (data && data.user.token) {
-                let token = data.user.split('|')[1];
+            if (data && data.token) {
+                let token = data.token.split('|')[1];
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
             }
         },
@@ -164,8 +164,6 @@ export default createStore({
             context.commit('PRELOADER_DECREMENT');
         },
         async getAllProjects(context) {
-            console.log(axios.defaults.headers.common['Authorization']);
-
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.getAll();
             if (result.status) {
@@ -212,36 +210,10 @@ export default createStore({
             context.commit('PRELOADER_INCREMENT');
             let result = await api.auth.login(userData);
             if (result.status) {
-                context.commit('SET_USER', result.result);
+                context.commit('SET_USER', result.result.user);
                 localStorage.setItem('user', JSON.stringify(result.result.user));
             }
             context.commit('PRELOADER_DECREMENT');
         },
-
-
-        // async updatePrice(context, {priceId, data}) {
-        //     context.commit('PRELOADER_INCREMENT');
-        //     let result = await api.projectPrice.update(priceId, data);
-        //     if (result.status) {
-        //         // context.commit('SET_PROJECT', result.result);
-        //     }
-        //     context.commit('PRELOADER_DECREMENT');
-        // },
-        // async updateStep(context, {stepId, data}) {
-        //     context.commit('PRELOADER_INCREMENT');
-        //     let result = await api.projectStep.update(stepId, data);
-        //     if (result.status) {
-        //         // context.commit('SET_PROJECT', result.result);
-        //     }
-        //     context.commit('PRELOADER_DECREMENT');
-        // },
-        // async updateTask(context, {taskId, data}) {
-        //     context.commit('PRELOADER_INCREMENT');
-        //     let result = await api.projectTask.update(taskId, data);
-        //     if (result.status) {
-        //         // context.commit('SET_PROJECT', result.result);
-        //     }
-        //     context.commit('PRELOADER_DECREMENT');
-        // },
     },
 })

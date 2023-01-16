@@ -21,12 +21,14 @@ import PreloaderComponent from "@/components/ui/PreloaderComponent";
 
 export default {
   name: 'App',
-  metaInfo: {
-    title: 'Калькулятор проектов',
-  },
   components: {
     PreloaderComponent,
     HeaderTemplate,
+  },
+  data() {
+    return {
+      title: 'Калькулятор проектов',
+    }
   },
   computed: {
     preloader() {
@@ -37,7 +39,14 @@ export default {
     }
   },
   mounted() {
-    // document.body.classList.add('d-flex', 'flex-column', 'min-vh-100')
+    this.load();
+  },
+  methods: {
+    load() {
+      if (! localStorage.user) {
+        this.$router.replace({name: 'login'});
+      }
+    }
   }
 }
 </script>

@@ -8,7 +8,6 @@ export default class Network {
         axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
         axios.defaults.timeout = 30000;
         if (localStorage.user) {
-            console.log(localStorage.user);
             store.commit('SET_USER', JSON.parse(localStorage.user));
         }
     }

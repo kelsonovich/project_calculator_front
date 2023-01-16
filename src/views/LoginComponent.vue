@@ -2,7 +2,7 @@
   <div class="h-100 d-flex align-items-center justify-content-center">
     <main class="form-signin w-100 ">
       <form>
-        <h3 class="h3 mb-3 fw-normal text-center">Авторизация</h3>
+        <h3 class="h3 mb-3 fw-normal text-center">Введите email и пароль</h3>
 
         <ProjectInputComponent :input="getLoginInput" @update="setLogin" class="mb-2"/>
         <ProjectInputComponent :input="getPasswordInput" @update="setPassword" class="mb-3"/>
@@ -45,11 +45,23 @@ export default {
         readonly: false,
         type: 'password',
       };
+    },
+    getUser() {
+      return this.$store.getters.GET_USER;
     }
   },
+  mounted() {
+    this.redirectIfNeeded();
+  },
   methods: {
+    redirectIfNeeded() {
+      if (this.getUser) {
+        this.$router.replace({name: 'projectList'});
+      }
+    },
     authorize() {
       this.$store.dispatch('login', {userData: this.userData});
+      this.redirectIfNeeded();
     },
     setLogin(value) {
       this.userData.email = value.email;

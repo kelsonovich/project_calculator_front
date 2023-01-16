@@ -112,53 +112,22 @@ export default createStore({
         clearProject(context) {
             context.commit('CLEAR_PROJECT');
         },
-        async changePrice(context, {price}) {
-            context.commit('CHANGE_PRICE', price);
-            context.commit('PRELOADER_INCREMENT');
-            let result = await api.project.calculate(context.getters.GET_INTERMEDIATE_PROJECT);
-            if (result.status) {
-                context.commit('SET_RECALCULATED_PROJECT', result.result);
+        async changeProject(context, {type, data}) {
+            if (type === 'steps') {
+                context.commit('CHANGE_STEPS', data);
+            } else if (type === 'tasks') {
+                context.commit('CHANGE_TASKS', data);
+            } else if (type === 'price') {
+                context.commit('CHANGE_PRICE', data);
+            } else if (type === 'options') {
+                context.commit('CHANGE_OPTIONS', data);
+            } else if (type === 'project') {
+                context.commit('CHANGE_PROJECT', data);
             }
-            context.commit('PRELOADER_DECREMENT');
-        },
-        async changeProject(context, {data}) {
-            context.commit('CHANGE_PROJECT', data);
-            context.commit('PRELOADER_INCREMENT');
-            let result = await api.project.calculate(context.getters.GET_INTERMEDIATE_PROJECT);
-            if (result.status) {
-                console.log(context.getters.GET_PROJECT);
 
-                context.commit('SET_RECALCULATED_PROJECT', result.result);
-            }
-            context.commit('PRELOADER_DECREMENT');
-        },
-        async changeSteps(context, {step}) {
-            context.commit('CHANGE_STEPS', step);
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.calculate(context.getters.GET_INTERMEDIATE_PROJECT);
             if (result.status) {
-                context.commit('SET_RECALCULATED_PROJECT', result.result);
-            }
-            context.commit('PRELOADER_DECREMENT');
-        },
-        async changeTasks(context, {tasks}) {
-            context.commit('CHANGE_TASKS', tasks);
-            context.commit('PRELOADER_INCREMENT');
-            let result = await api.project.calculate(context.getters.GET_INTERMEDIATE_PROJECT);
-            if (result.status) {
-                console.log(context.getters.GET_PROJECT);
-
-                context.commit('SET_RECALCULATED_PROJECT', result.result);
-            }
-            context.commit('PRELOADER_DECREMENT');
-        },
-        async changeOptions(context, {options}) {
-            context.commit('CHANGE_OPTIONS', options);
-            context.commit('PRELOADER_INCREMENT');
-            let result = await api.project.calculate(context.getters.GET_INTERMEDIATE_PROJECT);
-            if (result.status) {
-                console.log(context.getters.GET_PROJECT);
-
                 context.commit('SET_RECALCULATED_PROJECT', result.result);
             }
             context.commit('PRELOADER_DECREMENT');

@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "ProjectFooterComponent"
+  name: "FooterComponent"
 }
 </script>
 

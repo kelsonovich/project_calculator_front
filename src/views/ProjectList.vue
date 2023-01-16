@@ -11,7 +11,7 @@
 
 <script>
 
-import ProjectListItemComponent from "@/components/project/ProjectListItemComponent";
+import ProjectListItemComponent from "@/components/project/ListItemComponent";
 export default {
   name: "ProjectList",
   components: {ProjectListItemComponent},

@@ -11,7 +11,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <ProjectInputComponent :input="input" @update="setTitle"/>
+          <InputComponent :input="input" @update="setTitle"/>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-success btn-sm" @click="createProject">Создать</button>
@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import ProjectInputComponent from "@/components/project/ProjectInputComponent";
+import InputComponent from "@/components/ui/InputComponent";
 
 export default {
-  name: "CreateProjectComponent",
-  components: {ProjectInputComponent},
+  name: "CreateProjectButton",
+  components: {InputComponent},
   data() {
     return {
       input: {

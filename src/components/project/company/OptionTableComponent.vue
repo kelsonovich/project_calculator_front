@@ -6,18 +6,18 @@
     <table class="table table-hover table-bordered table-sm">
       <TableHead :config="config" :thBgClass="'table-primary'"/>
 
-      <ProjectTaskTableBody :config="config" :body="project.calculatedOptions" :type="'task'" @changeProject="change"/>
+      <TaskTableBody :config="config" :body="project.calculatedOptions" :type="'task'" @changeProject="change"/>
     </table>
   </div>
 </template>
 
 <script>
 import TableHead from "@/components/ui/table/TableHead";
-import ProjectTaskTableBody from "@/components/project/ProjectTaskTableBody";
+import TaskTableBody from "@/components/project/TaskTableBody";
 
 export default {
   name: "OptionTableComponent",
-  components: {ProjectTaskTableBody, TableHead},
+  components: {TaskTableBody, TableHead},
   props: {
     project: [Object, Array],
     isClient: Boolean,
@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     change(value) {
-      this.$store.dispatch('changeOptions', {options: value});
+      this.$store.dispatch('changeProject', {type: 'options', data: value});
     }
   }
 }

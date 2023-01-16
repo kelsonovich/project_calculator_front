@@ -39,7 +39,7 @@
 import {IMaskDirective} from 'vue-imask';
 
 export default {
-  name: "ProjectInputComponent",
+  name: "InputComponent",
   props: {
     input: Object
   },

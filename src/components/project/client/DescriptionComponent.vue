@@ -1,14 +1,15 @@
 <template>
   <div class="card card-body h-100">
-    <ProjectInputComponent :input="getDescriptionConfig" @update="updateDescription"/>
+    <InputComponent :input="getDescriptionConfig" @update="updateDescription"/>
   </div>
 </template>
 
 <script>
-import ProjectInputComponent from "@/components/project/ProjectInputComponent";
+import InputComponent from "@/components/ui/InputComponent";
+
 export default {
-  name: "ProjectDescriptionComponent",
-  components: {ProjectInputComponent},
+  name: "DescriptionComponent",
+  components: {InputComponent},
   props: {
     project: Object
   },

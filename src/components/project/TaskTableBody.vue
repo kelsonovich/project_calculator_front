@@ -34,7 +34,7 @@ import TableCellComponent from "@/components/ui/table/cell/TableCellComponent";
 import utils from "@/assets/js/utils";
 
 export default {
-  name: "ProjectTaskTableBody",
+  name: "TaskTableBody",
   components: {TableCellComponent},
   props: {
     body: [Array, Object],

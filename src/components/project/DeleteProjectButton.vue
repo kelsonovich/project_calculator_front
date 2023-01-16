@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "DeleteProjectComponent",
+  name: "DeleteProjectButton",
   props: {
     project: Object
   },

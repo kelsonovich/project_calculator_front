@@ -7,18 +7,18 @@
         </span>
       </div>
       <div class="col-1 d-grid gap-2 mx-auto">
-        <DeleteProjectComponent :project="project" @click="sendDelete"/>
+        <DeleteProjectButton :project="project" @click="sendDelete"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import DeleteProjectComponent from "@/components/DeleteProjectComponent";
+import DeleteProjectButton from "@/components/project/DeleteProjectButton";
 
 export default {
-  name: "ProjectListItemComponent",
-  components: {DeleteProjectComponent},
+  name: "ListItemComponent",
+  components: {DeleteProjectButton},
   props: {
     project: Object
   },

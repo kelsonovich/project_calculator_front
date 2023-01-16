@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "ProjectUpdateButton",
+  name: "UpdateProjectButton",
   methods: {
     updateProject() {
       console.log('clear project');

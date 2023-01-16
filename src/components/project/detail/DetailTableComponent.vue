@@ -15,7 +15,7 @@
 import TableComponent from "@/components/ui/table/TableComponent";
 
 export default {
-  name: "ProjectDetalizationTableComponent",
+  name: "DetailTableComponent",
   components: {TableComponent},
   data() {
     return {

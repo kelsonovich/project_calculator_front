@@ -15,7 +15,7 @@
 import TableGanttComponent from "@/components/ui/table/TableGanttComponent";
 
 export default {
-  name: "ProjectClientTableComponent",
+  name: "ClientTableComponent",
   components: {TableGanttComponent},
   props: {
     project: [Object, Array],

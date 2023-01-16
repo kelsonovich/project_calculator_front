@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import CreateProjectComponent from "@/components/CreateProjectComponent";
+import CreateProjectComponent from "@/components/project/CreateProjectButton";
 export default {
   name: "HeaderTemplate",
   components: {CreateProjectComponent},

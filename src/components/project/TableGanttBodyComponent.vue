@@ -17,10 +17,10 @@
 </template>
 
 <script>
-
 import TableCellComponent from "@/components/ui/table/cell/TableCellComponent";
+
 export default {
-  name: "ProjectStepTableBody",
+  name: "TableGanttBodyComponent",
   components: {TableCellComponent},
   props: {
     steps: [Array, Object],
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     async updateStep(value) {
-      this.$store.dispatch('changeSteps', {step: value});
+      this.$store.dispatch('changeProject', {type: 'steps', data: value});
     },
     prepare(steps) {
       let body = [];

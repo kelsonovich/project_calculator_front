@@ -2,21 +2,21 @@
   <table class="table table-hover table-responsive-xl">
     <TableHead :config="config" :thBgClass="'table-primary'"/>
 
-    <ProjectTaskTableBody :config="config" :body="tasks" :type="'task'" @changeProject="change"/>
-    <ProjectTaskTableBody :config="config" :body="qa"    :isAdditional="true" :title="'Тестирование'"/>
-    <ProjectTaskTableBody :config="config" :body="steps" :isAdditional="true" :title="'Итого этапы'"/>
-    <ProjectTaskTableBody :config="config" :body="total" :isAdditional="true" :title="'Итого'"/>
+    <TaskTableBody :config="config" :body="tasks" :type="'task'" @changeProject="change"/>
+    <TaskTableBody :config="config" :body="qa" :isAdditional="true" :title="'Тестирование'"/>
+    <TaskTableBody :config="config" :body="steps" :isAdditional="true" :title="'Итого этапы'"/>
+    <TaskTableBody :config="config" :body="total" :isAdditional="true" :title="'Итого'"/>
   </table>
 </template>
 
 <script>
 import TableHead from "@/components/ui/table/TableHead";
-import ProjectTaskTableBody from "@/components/project/ProjectTaskTableBody";
+import TaskTableBody from "@/components/project/TaskTableBody";
 
 export default {
   name: "TableComponent",
   components: {
-    ProjectTaskTableBody,
+    TaskTableBody,
     TableHead
   },
   props: {
@@ -27,8 +27,8 @@ export default {
     steps: [Object, Array],
   },
   methods: {
-    change(value){
-      this.$store.dispatch('changeTasks', {tasks: value});
+    change(value) {
+      this.$store.dispatch('changeProject', {type: 'tasks', data: value});
     }
   }
 }

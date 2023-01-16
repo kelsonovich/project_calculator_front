@@ -1,19 +1,19 @@
 <template>
   <div class="card card-body h-100" v-if="project">
-    <ProjectInputComponent :input="getProjectStart" @update="calculate"/>
-    <ProjectInputComponent :input="getProjectEnd"/>
-    <ProjectInputComponent :input="getProjectDuration"/>
-    <ProjectInputComponent :input="getProjectPrice"/>
-    <ProjectInputComponent v-if="!isReadonly" :input="getProjectClientBuffer" @update="calculate"/>
+    <InputComponent :input="getProjectStart" @update="calculate"/>
+    <InputComponent :input="getProjectEnd"/>
+    <InputComponent :input="getProjectDuration"/>
+    <InputComponent :input="getProjectPrice"/>
+    <InputComponent v-if="!isReadonly" :input="getProjectClientBuffer" @update="calculate"/>
   </div>
 </template>
 
 <script>
-import ProjectInputComponent from "@/components/project/ProjectInputComponent";
+import InputComponent from "@/components/ui/InputComponent";
 
 export default {
-  name: "ProjectDateComponent",
-  components: {ProjectInputComponent},
+  name: "CardDateComponent",
+  components: {InputComponent},
   props: {
     isReadonly: Boolean,
     isClient: Boolean,
@@ -92,7 +92,6 @@ export default {
   },
   methods: {
     calculate(value) {
-      console.log('ProjectDateComponent');
       this.$emit('changeProject', value);
     },
     setProject() {

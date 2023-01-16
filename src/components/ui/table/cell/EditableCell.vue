@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ProjectInputComponent from "@/components/project/ProjectInputComponent";
+import ProjectInputComponent from "@/components/ui/InputComponent";
 export default {
   name: "EditableCell",
   components: {ProjectInputComponent},

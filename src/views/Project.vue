@@ -8,45 +8,45 @@
         <ClearChangeButton />
       </div>
       <div class="col">
-        <ProjectUpdateButton />
+        <UpdateProjectButton />
       </div>
     </div>
 
     <div class="tab-content" id="detalizationTabContent">
       <div class="tab-pane fade show active" id="client" role="tabpanel" aria-labelledby="client-tab" tabindex="0">
-        <ProjectClientTabComponent :project="project" @changeProject="calculate"/>
+        <ClientTabComponent :project="project" @changeProject="calculate"/>
       </div>
 
       <div class="tab-pane fade" id="scid" role="tabpanel" aria-labelledby="scid-tab" tabindex="0">
-        <ProjectCompanyTabComponent :project="project" @changeProject="calculate"/>
+        <CompanyTabComponent :project="project" @changeProject="calculate"/>
       </div>
 
       <div class="tab-pane fade" id="detalization" role="tabpanel" aria-labelledby="detalization-tab" tabindex="0">
-        <ProjectDetalizationTableComponent @updateProject="calculate"/>
+        <DetailTableComponent @updateProject="calculate"/>
       </div>
     </div>
   </div>
-  <ProjectFooterComponent/>
+  <FooterComponent/>
 </template>
 
 <script>
 import TitleUI from "@/components/ui/Title";
-import ProjectFooterComponent from "@/components/project/ProjectFooterComponent";
-import ProjectDetalizationTableComponent from "@/components/project/ProjectDetalizationTableComponent";
-import ProjectClientTabComponent from "@/components/project/ProjectClientTabComponent";
-import ProjectCompanyTabComponent from "@/components/project/ProjectCompanyTabComponent";
-import ProjectUpdateButton from "@/components/project/ProjectUpdateButton";
+import FooterComponent from "@/components/project/FooterComponent";
+import DetailTableComponent from "@/components/project/detail/DetailTableComponent";
+import ClientTabComponent from "@/components/project/client/ClientTabComponent";
+import CompanyTabComponent from "@/components/project/company/CompanyTabComponent";
+import UpdateProjectButton from "@/components/project/UpdateProjectButton";
 import ClearChangeButton from "@/components/project/ClearChangeButton";
 
 export default {
   name: "ProjectComponent",
   components: {
     ClearChangeButton,
-    ProjectUpdateButton,
-    ProjectCompanyTabComponent,
-    ProjectClientTabComponent,
-    ProjectDetalizationTableComponent,
-    ProjectFooterComponent,
+    UpdateProjectButton,
+    CompanyTabComponent,
+    ClientTabComponent,
+    DetailTableComponent,
+    FooterComponent,
     TitleUI
   },
   data() {

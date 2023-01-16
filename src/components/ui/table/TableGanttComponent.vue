@@ -1,9 +1,8 @@
 <template>
   <table class="table table-hover table-bordered table-sm">
-<!--    <TableHead :config="config" :thBgClass="'bg-title text-white'"/>-->
     <TableHead :config="config" :thBgClass="'table-primary'"/>
 
-    <ProjectStepTableBody
+    <TableGanttBodyComponent
         :steps="steps"
         :config="config"
         :isClient="isClient"
@@ -26,12 +25,12 @@
 
 <script>
 import TableHead from "@/components/ui/table/TableHead";
-import ProjectStepTableBody from "@/components/project/ProjectStepTableBody";
+import TableGanttBodyComponent from "@/components/project/TableGanttBodyComponent";
 
 export default {
   name: "TableGanttComponent",
   components: {
-    ProjectStepTableBody,
+    TableGanttBodyComponent,
     TableHead
   },
   props: {

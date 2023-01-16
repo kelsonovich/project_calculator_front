@@ -29,6 +29,7 @@
           v-model="inputValue"
           @change="setValue"
           v-imask="getMask()"
+          :placeholder="input.placeholder"
       >
     </template>
   </div>

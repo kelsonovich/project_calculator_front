@@ -1,5 +1,5 @@
 <template>
-  <HeaderTemplate/>
+  <HeaderTemplate v-if="!isLogin"/>
   <div class="container-fluid">
     <PreloaderComponent v-if="preloader > 0"/>
     <router-view
@@ -32,6 +32,9 @@ export default {
     preloader() {
       return this.$store.getters.PRELOADER;
     },
+    isLogin() {
+      return this.$route.path === '/login';
+    }
   },
   mounted() {
     // document.body.classList.add('d-flex', 'flex-column', 'min-vh-100')

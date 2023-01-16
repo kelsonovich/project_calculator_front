@@ -1,11 +1,16 @@
 import axios from 'axios'
 import ApiResponse from '@/api/response'
 import utils from '@/assets/js/utils'
+import store from '@/store'
 
 export default class Network {
     static configure() {
         axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
         axios.defaults.timeout = 30000;
+        if (localStorage.user) {
+            console.log(localStorage.user);
+            store.commit('SET_USER', JSON.parse(localStorage.user));
+        }
     }
 
     static async request(url, method, data, config) {

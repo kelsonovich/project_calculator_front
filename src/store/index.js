@@ -1,6 +1,7 @@
 import {createStore} from 'vuex'
 import api from '@/api'
 import utils from '@/assets/js/utils'
+import axios from 'axios';
 
 export default createStore({
     modules: {},
@@ -11,6 +12,7 @@ export default createStore({
         intermediateProject: null,
         preloader: 0,
         newProjectId: null,
+        userData: null,
     },
     getters: {
         GET_ALL_PROJECTS(state) {
@@ -30,6 +32,9 @@ export default createStore({
         },
         PRELOADER(state) {
             return state.preloader;
+        },
+        GET_USER(state) {
+            return state.userData;
         },
     },
     mutations: {
@@ -89,6 +94,19 @@ export default createStore({
         CHANGE_TASKS (state, tasks) {
             state.intermediateProject.tasks = tasks;
         },
+        SET_USER(state, data) {
+            if (data) {
+                state.userData = data.user
+            }
+            if (data && data.user.token) {
+                let token = data.user.split('|')[1];
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            }
+        },
+        RESET_USER(state) {
+            state.userData = null
+            axios.defaults.headers.common['Authorization'] = ''
+        },
     },
     actions: {
         clearProject(context) {
@@ -146,6 +164,8 @@ export default createStore({
             context.commit('PRELOADER_DECREMENT');
         },
         async getAllProjects(context) {
+            console.log(axios.defaults.headers.common['Authorization']);
+
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.getAll();
             if (result.status) {
@@ -188,6 +208,17 @@ export default createStore({
             }
             context.commit('PRELOADER_DECREMENT');
         },
+        async login(context, {userData}) {
+            context.commit('PRELOADER_INCREMENT');
+            let result = await api.auth.login(userData);
+            if (result.status) {
+                context.commit('SET_USER', result.result);
+                localStorage.setItem('user', JSON.stringify(result.result.user));
+            }
+            context.commit('PRELOADER_DECREMENT');
+        },
+
+
         // async updatePrice(context, {priceId, data}) {
         //     context.commit('PRELOADER_INCREMENT');
         //     let result = await api.projectPrice.update(priceId, data);

@@ -1,7 +1,7 @@
 <template>
   <div>
     <button class="btn btn-outline-danger" @click="clearProject">
-      Отменить сохранения
+      Отменить изменения
     </button>
   </div>
 </template>

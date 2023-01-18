@@ -11,7 +11,7 @@ export default {
   name: "UpdateProjectButton",
   methods: {
     updateProject() {
-      console.log('clear project');
+      this.$store.dispatch('updateProject');
     }
   }
 }

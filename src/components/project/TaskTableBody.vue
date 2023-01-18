@@ -102,7 +102,7 @@ export default {
 
       this.rows.push(newTask);
 
-      this.$emit('changeProject', this.rows);
+      // this.$emit('changeProject', this.rows);
     },
     prepare(tasks) {
       this.rows.forEach((row, index) => {

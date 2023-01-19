@@ -8,7 +8,7 @@ const routes = [
         component: () => import ('../views/ProjectList')
     },
     {
-        path: '/project/:projectId',
+        path: '/project/:projectId/:revisionId',
         name: 'projectDetail',
         props: true,
         component: () => import ('../views/Project')

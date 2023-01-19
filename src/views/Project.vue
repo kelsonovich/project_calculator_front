@@ -63,8 +63,8 @@ export default {
   },
   methods: {
     load() {
-      if (this.$route.params && this.$route.params.projectId) {
-        this.$store.dispatch('getProject', {projectId: this.$route.params.projectId});
+      if (this.$route.params && this.$route.params.projectId && this.$route.params.projectId) {
+        this.$store.dispatch('getProject', {projectId: this.$route.params.projectId, revisionId: this.$route.params.revisionId});
       }
     },
     calculate(value) {

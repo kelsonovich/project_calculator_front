@@ -104,18 +104,24 @@ export default {
 
       // this.$emit('changeProject', this.rows);
     },
+    insertFirstRow (){
+
+    },
     prepare(tasks) {
+      if (tasks.length === 0) {
+        let newTask = {};
+        this.config.forEach(tableHeadCell => {
+          let tableHeadCellCopy = JSON.parse(JSON.stringify(tableHeadCell));
+
+          newTask[tableHeadCellCopy.key] = (tableHeadCellCopy.type === 'number') ? 0 : '';
+        });
+
+        this.rows.push(newTask);
+      }
+
       this.rows.forEach((row, index) => {
         row.innerIndex = index;
       });
-
-      if (tasks.length === 0) {
-        for (let i = 0; i < this.config.length; i++) {
-          tasks.push({});
-        }
-
-        tasks = [tasks];
-      }
 
       let body = [];
       tasks.forEach((task, index) => {

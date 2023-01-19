@@ -140,9 +140,9 @@ export default createStore({
             }
             context.commit('PRELOADER_DECREMENT');
         },
-        async getProject(context, {projectId, data}) {
+        async getProject(context, {projectId, revisionId, data}) {
             context.commit('PRELOADER_INCREMENT');
-            let result = await api.project.getProject(projectId, data);
+            let result = await api.project.getProject(projectId, revisionId, data);
             if (result.status) {
                 context.commit('SET_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_RECALCULATED_PROJECT', JSON.parse(JSON.stringify(result.result)));

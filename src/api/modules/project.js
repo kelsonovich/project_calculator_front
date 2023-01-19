@@ -11,8 +11,8 @@ export default class Project {
         return res
     }
 
-    static async getProject(projectId, data) {
-        let res = await network.get(this.route + `/${projectId}`, data);
+    static async getProject(projectId, revisionId, data) {
+        let res = await network.get(this.route + `/${projectId}` + `/${revisionId}`, data);
         if (res.isSuccess) {
             // console.log('api_form', res)
         }

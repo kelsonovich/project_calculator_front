@@ -2,7 +2,7 @@
   <div class="h-100 d-flex align-items-center justify-content-center">
     <main class="form-signin w-100 ">
       <form>
-        <h3 class="h3 mb-3 fw-normal text-center">Введите email и пароль</h3>
+        <h3 class="h3 mb-3 fw-normal text-center">Необходимо авторизоваться</h3>
 
         <ProjectInputComponent :input="getLoginInput" @update="setLogin" class="mb-2"/>
         <ProjectInputComponent :input="getPasswordInput" @update="setPassword" class="mb-3"/>
@@ -59,8 +59,9 @@ export default {
         this.$router.replace({name: 'projectList'});
       }
     },
-    authorize() {
-      this.$store.dispatch('login', {userData: this.userData});
+    async authorize() {
+      await this.$store.dispatch('login', {userData: this.userData});
+      console.log('запрос завершен');
       this.redirectIfNeeded();
     },
     setLogin(value) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-body mb-3" >
+  <div class="card card-body mb-3">
     <div class="row">
       <div class="col-11" @click="redirect(project)" style="cursor:pointer;">
         <span class="fs-4 align-middle">
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     redirect() {
-      this.$router.push({path: '/project/' + this.project.id});
+      this.$router.push({name: 'projectDetail', params: {projectId: this.project.id, revisionId: this.project.revision_id}});
     },
     sendDelete() {
       this.$emit('delete');

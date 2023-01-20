@@ -24,7 +24,13 @@ export default {
   },
   methods: {
     redirect() {
-      this.$router.push({name: 'projectDetail', params: {projectId: this.project.id, revisionId: this.project.revision_id}});
+      let projectId = this.project.id;
+      console.log(projectId);
+      if (this.project.parent_id !== null) {
+        projectId = this.project.parent_id;
+      }
+
+      this.$router.push({name: 'projectDetail', params: {projectId: projectId, revisionId: this.project.revision_id}});
     },
     sendDelete() {
       this.$emit('delete');

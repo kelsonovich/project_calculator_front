@@ -67,7 +67,7 @@ export default {
         let tasks = this.rows;
 
         tasks.forEach(task => {
-          if (Number(task.innerIndex) === Number(value.innerIndex) || Number(task.id) === Number(value.id)) {
+          if (Number(task.innerIndex) === Number(value.innerIndex)) {
             for (let key in value) {
               if (utils.hasProperty(task, key)) {
                 task[key] = value[key];
@@ -104,9 +104,6 @@ export default {
 
       // this.$emit('changeProject', this.rows);
     },
-    insertFirstRow (){
-
-    },
     prepare(tasks) {
       if (tasks.length === 0) {
         let newTask = {};
@@ -124,7 +121,7 @@ export default {
       });
 
       let body = [];
-      tasks.forEach((task, index) => {
+      tasks.forEach(task => {
         let row = [];
         this.config.forEach(tableHeadCell => {
           let tableHeadCellCopy = JSON.parse(JSON.stringify(tableHeadCell));
@@ -142,7 +139,7 @@ export default {
 
           cell.id = task.id;
           cell.value = value;
-          cell.innerIndex = index;
+          cell.innerIndex = task.innerIndex;
           row.push(cell);
         });
 

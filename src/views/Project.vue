@@ -63,15 +63,13 @@ export default {
   },
   methods: {
     load() {
+      console.log('load');
       if (this.$route.params && this.$route.params.projectId && this.$route.params.projectId) {
         this.$store.dispatch('getProject', {projectId: this.$route.params.projectId, revisionId: this.$route.params.revisionId});
       }
     },
     calculate(value) {
-      console.log('ProjectComponent');
-      console.log(value);
       this.$store.dispatch('changeProject', {data: value});
-      // await this.$store.dispatch('updateProject', {projectId: this.$route.params.projectId, data: value});
     }
   }
 }

@@ -12,8 +12,8 @@ network.configure();
 
 const app = createApp(App);
 
-app.use(store);
 app.use(router);
+app.use(store);
 router.isReady().then(() => app.mount('#app'))
 
 // createApp(App).use(store).use(router).mount('#app')

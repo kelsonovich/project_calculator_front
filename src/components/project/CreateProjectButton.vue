@@ -36,23 +36,25 @@ export default {
         type: 'text',
         class: ['mb-3l']
       },
-      project: null
+      title: null
     }
   },
   computed: {
-    newProjectId() {
-      return this.$store.getters.GET_NEW_PROJECT_ID;
+    project() {
+      return this.$store.getters.GET_RECALCULATED_PROJECT;
     }
   },
   methods: {
     setTitle(value) {
-      this.project = value;
+      this.title = value.title;
     },
     async createProject() {
-      if (this.project.title.length > 5) {
-        await this.$store.dispatch('createProject', {data: this.project});
+      if (this.title.length > 5) {
+        await this.$store.dispatch('createProject', {data: {title: this.title}});
         document.querySelector('button[data-bs-dismiss="modal"]').click();
-        this.$router.push({path: '/project/' + this.$store.getters.GET_NEW_PROJECT_ID});
+        await this.$store.dispatch('getAllProjects');
+
+        this.$router.push({name: 'projectList'});
       }
     },
   }

@@ -2,6 +2,7 @@ import {createStore} from 'vuex'
 import api from '@/api'
 import utils from '@/assets/js/utils'
 import axios from 'axios';
+import router from "@/router";
 
 export default createStore({
     modules: {},
@@ -27,9 +28,6 @@ export default createStore({
         GET_INTERMEDIATE_PROJECT(state) {
             return state.intermediateProject;
         },
-        GET_NEW_PROJECT_ID(state) {
-            return state.newProjectId;
-        },
         PRELOADER(state) {
             return state.preloader;
         },
@@ -49,9 +47,6 @@ export default createStore({
         },
         SET_INTERMEDIATE_PROJECT(state, project) {
             state.intermediateProject = project;
-        },
-        SET_NEW_PROJECT_ID(state, newProjectId) {
-            state.newProjectId = newProjectId;
         },
         PRELOADER_INCREMENT(state) {
             state.preloader++;
@@ -154,7 +149,9 @@ export default createStore({
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.createProject(data);
             if (result.status) {
-                context.commit('SET_NEW_PROJECT_ID', result.result.id);
+                context.commit('SET_PROJECT', JSON.parse(JSON.stringify(result.result)));
+                context.commit('SET_RECALCULATED_PROJECT', JSON.parse(JSON.stringify(result.result)));
+                context.commit('SET_INTERMEDIATE_PROJECT', JSON.parse(JSON.stringify(result.result)));
             }
             context.commit('PRELOADER_DECREMENT');
         },
@@ -163,14 +160,14 @@ export default createStore({
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.update(project.id, {project: project});
 
-            console.log(result);
-
             if (result.status) {
+                let project = JSON.parse(JSON.stringify(result.result));
 
-                context.commit('SET_PROJECT', JSON.parse(JSON.stringify(result.result)));
+                context.commit('SET_PROJECT', project);
                 context.commit('SET_RECALCULATED_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_INTERMEDIATE_PROJECT', JSON.parse(JSON.stringify(result.result)));
-                console.log('PROJECT HAS BEEN UPDATED');
+
+                router.replace({name: 'projectDetail', params: {revisionId: project.revision_id}});
             }
             context.commit('PRELOADER_DECREMENT');
         },

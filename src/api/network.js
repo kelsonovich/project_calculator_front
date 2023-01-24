@@ -30,7 +30,7 @@ export default class Network {
         request = {...request, ...config};
         try {
             let result = await axios(request);
-            return new ApiResponse(result.data);
+            return new ApiResponse(result.data, result.status);
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 await store.dispatch('resetAuthorization', error.response);

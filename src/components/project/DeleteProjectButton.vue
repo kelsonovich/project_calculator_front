@@ -11,9 +11,9 @@ export default {
     project: Object
   },
   methods: {
-    deleteProject() {
-      this.$store.dispatch('deleteProject', {projectId: this.project.id});
-      this.$emit('click');
+    async deleteProject() {
+     await this.$store.dispatch('deleteProject', {projectId: this.project.id, revisionId: this.project.revision_id});
+     await this.$store.dispatch('getAllProjects');
     }
   }
 }

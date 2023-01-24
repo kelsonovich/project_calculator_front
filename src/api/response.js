@@ -103,12 +103,14 @@ export default class ApiResponse {
     error = null;
     result = null;
     message = null;
+    code = null;
 
     get isSuccess() {
         return this.status
     }
 
-    constructor(json) {
+    constructor(json, code) {
+        this.code = code;
         if (json) {
             if (json.status === true) {
                 // if (json.success === true) {

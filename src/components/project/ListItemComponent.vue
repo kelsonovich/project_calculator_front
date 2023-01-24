@@ -7,7 +7,7 @@
         </span>
       </div>
       <div class="col-1 d-grid gap-2 mx-auto">
-        <DeleteProjectButton :project="project" @click="sendDelete"/>
+        <DeleteProjectButton :project="project"/>
       </div>
     </div>
   </div>
@@ -31,9 +31,6 @@ export default {
 
       this.$router.push({name: 'projectDetail', params: {projectId: projectId, revisionId: this.project.revision_id}});
     },
-    sendDelete() {
-      this.$emit('delete');
-    }
   }
 }
 </script>

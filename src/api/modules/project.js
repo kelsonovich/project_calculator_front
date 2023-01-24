@@ -35,8 +35,8 @@ export default class Project {
         return res
     }
 
-    static async delete(projectId) {
-        let res = await network.delete(this.route + `/${projectId}`);
+    static async delete(projectId, revisionId) {
+        let res = await network.delete(this.route + `/${projectId}` + `/${revisionId}`);
         if (res.isSuccess) {
             // console.log('api_form', res)
         }

@@ -181,10 +181,10 @@ export default createStore({
             }
             context.commit('PRELOADER_DECREMENT');
         },
-        async deleteProject(context, {projectId}) {
+        async deleteProject(context, {projectId, revisionId}) {
             context.commit('PRELOADER_INCREMENT');
-            let result = await api.project.delete(projectId);
-            if (result.status) {
+            let result = await api.project.delete(projectId, revisionId);
+            if (result.code === 204) {
                 toast.success('Проект успешно удален');
             }
             context.commit('PRELOADER_DECREMENT');

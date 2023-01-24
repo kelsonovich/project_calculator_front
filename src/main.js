@@ -13,7 +13,7 @@ import "vue-toastification/dist/index.css";
 const toastOptions = {
     position: POSITION.BOTTOM_RIGHT,
     shareAppContext: true,
-    timeout: 1500,
+    timeout: 3000,
     pauseOnHover: true,
 }
 

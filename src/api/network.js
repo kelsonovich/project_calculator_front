@@ -36,7 +36,10 @@ export default class Network {
                 await store.dispatch('resetAuthorization', error.response);
             }
             if (error.response && error.response.status === 403) {
-                // await store.dispatch('redirectForbidden', error.response);
+                await store.dispatch('setNotFound');
+            }
+            if (error.response && error.response.status === 404) {
+                await store.dispatch('setNotFound');
             }
             return new ApiResponse(error.response);
         }

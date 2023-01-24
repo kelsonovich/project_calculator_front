@@ -3,6 +3,9 @@ import api from '@/api'
 import utils from '@/assets/js/utils'
 import axios from 'axios';
 import router from "@/router";
+import {useToast} from "vue-toastification";
+
+const toast = useToast();
 
 export default createStore({
     modules: {},
@@ -140,6 +143,8 @@ export default createStore({
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.getProject(projectId, revisionId, data);
             if (result.status) {
+
+
                 context.commit('SET_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_RECALCULATED_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_INTERMEDIATE_PROJECT', JSON.parse(JSON.stringify(result.result)));
@@ -153,6 +158,8 @@ export default createStore({
                 context.commit('SET_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_RECALCULATED_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_INTERMEDIATE_PROJECT', JSON.parse(JSON.stringify(result.result)));
+
+                toast.success(result.message);
             }
             context.commit('PRELOADER_DECREMENT');
         },
@@ -168,6 +175,8 @@ export default createStore({
                 context.commit('SET_RECALCULATED_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_INTERMEDIATE_PROJECT', JSON.parse(JSON.stringify(result.result)));
 
+                toast.success(result.message);
+
                 router.replace({name: 'projectDetail', params: {revisionId: project.revision_id}});
             }
             context.commit('PRELOADER_DECREMENT');
@@ -176,7 +185,7 @@ export default createStore({
             context.commit('PRELOADER_INCREMENT');
             let result = await api.project.delete(projectId);
             if (result.status) {
-                // context.commit('SET_PROJECT', result.result);
+                toast.success('Проект успешно удален');
             }
             context.commit('PRELOADER_DECREMENT');
         },
@@ -192,6 +201,9 @@ export default createStore({
         resetAuthorization(context) {
             localStorage.removeItem('user');
             context.commit('RESET_USER');
+        },
+        setNotFound() {
+            router.replace({name: 'projectList'});
         },
     },
 })

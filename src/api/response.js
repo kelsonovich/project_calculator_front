@@ -41,9 +41,9 @@ class ApiError {
 
         if (this.value === null) {
             this.value = ['Ошибка выполнения запроса'];
+        } else {
+            toast.error(this.value[0]);
         }
-        
-        toast.error(this.value[0]);
     }
 
     getMessage(key, params) {
@@ -102,6 +102,7 @@ export default class ApiResponse {
     status = false;
     error = null;
     result = null;
+    message = null;
 
     get isSuccess() {
         return this.status
@@ -113,6 +114,7 @@ export default class ApiResponse {
                 // if (json.success === true) {
                 this.status = true;
                 this.result = json.result;
+                this.message = json.message;
             } else {
                 if (json.data && json.data.errors) {
                     this.result = json.data.errors;

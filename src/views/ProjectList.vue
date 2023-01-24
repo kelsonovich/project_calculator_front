@@ -3,7 +3,7 @@
     <ProjectListItemComponent
         v-for="project in allProjects"
         :key="project.id"
-        :project="project.result"
+        :project="project"
         @delete="load"
     />
   </div>

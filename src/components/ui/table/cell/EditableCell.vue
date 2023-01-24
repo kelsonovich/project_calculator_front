@@ -13,6 +13,7 @@ export default {
   methods: {
     setValue(value) {
       console.log('EditableCell');
+      console.log(value);
       this.$emit('updateCell', value);
     }
   }

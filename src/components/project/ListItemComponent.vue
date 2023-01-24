@@ -25,7 +25,6 @@ export default {
   methods: {
     redirect() {
       let projectId = this.project.id;
-      console.log(projectId);
       if (this.project.parent_id !== null) {
         projectId = this.project.parent_id;
       }

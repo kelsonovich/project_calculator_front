@@ -27,12 +27,18 @@ export default class Network {
                 request.data = data;
             }
         }
-        request = {...request, ...config}
+        request = {...request, ...config};
         try {
             let result = await axios(request);
             return new ApiResponse(result.data);
         } catch (error) {
-            return new ApiResponse(error.response)
+            if (error.response && error.response.status === 401) {
+                await store.dispatch('resetAuthorization', error.response);
+            }
+            if (error.response && error.response.status === 403) {
+                // await store.dispatch('redirectForbidden', error.response);
+            }
+            return new ApiResponse(error.response);
         }
     }
 

@@ -7,6 +7,15 @@ import store from './store';
 import network from "@/api/network";
 import '@/assets/css/custom.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import Toast, {POSITION} from 'vue-toastification';
+import "vue-toastification/dist/index.css";
+
+const toastOptions = {
+    position: POSITION.BOTTOM_RIGHT,
+    shareAppContext: true,
+    timeout: 1500,
+    pauseOnHover: true,
+}
 
 network.configure();
 
@@ -14,9 +23,5 @@ const app = createApp(App);
 
 app.use(store);
 app.use(router);
-router.isReady().then(() => app.mount('#app'))
-
-// createApp(App).use(store).use(router).mount('#app')
-
-
-
+app.use(Toast, toastOptions);
+router.isReady().then(() => app.mount('#app'));

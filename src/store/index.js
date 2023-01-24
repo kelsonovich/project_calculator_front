@@ -103,6 +103,7 @@ export default createStore({
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
             }
         },
+
         RESET_USER(state) {
             state.userData = null
             axios.defaults.headers.common['Authorization'] = ''
@@ -190,6 +191,10 @@ export default createStore({
                 localStorage.setItem('user', JSON.stringify(result.result.user));
             }
             context.commit('PRELOADER_DECREMENT');
+        },
+        resetAuthorization(context) {
+            localStorage.removeItem('user');
+            context.commit('RESET_USER');
         },
     },
 })

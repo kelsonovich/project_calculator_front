@@ -71,6 +71,12 @@ export default {
         value = Number(value);
       }
 
+      if (this.input.isRequired) {
+        if (value.length === 0) {
+          return;
+        }
+      }
+
       this.$emit('update', {
         [this.input.key]: value
       });

@@ -1,4 +1,7 @@
 import utils from '@/assets/js/utils'
+import {useToast} from "vue-toastification";
+
+const toast = useToast();
 
 class ApiError {
     value = null;
@@ -35,9 +38,12 @@ class ApiError {
                 this.value = data;
             }
         }
+
         if (this.value === null) {
             this.value = ['Ошибка выполнения запроса'];
         }
+        
+        toast.error(this.value[0]);
     }
 
     getMessage(key, params) {

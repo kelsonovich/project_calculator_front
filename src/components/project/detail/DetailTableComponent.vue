@@ -29,7 +29,8 @@ export default {
             vertical: true,
             horizontal: false,
           },
-          classes: ['title']
+          classes: ['title'],
+          isRequired: true
         },
         {
           title: 'Описание',

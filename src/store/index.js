@@ -17,6 +17,8 @@ export default createStore({
         preloader: 0,
         newProjectId: null,
         userData: null,
+        clients: null,
+        innerCompanies: null,
     },
     getters: {
         GET_ALL_PROJECTS(state) {
@@ -36,6 +38,12 @@ export default createStore({
         },
         GET_USER(state) {
             return state.userData;
+        },
+        GET_CLIENTS(state) {
+            return state.clients;
+        },
+        GET_INNER_COMPANIES(state) {
+            return state.clients;
         },
     },
     mutations: {
@@ -105,6 +113,13 @@ export default createStore({
         RESET_USER(state) {
             state.userData = null
             axios.defaults.headers.common['Authorization'] = ''
+        },
+
+        SET_CLIENTS(state, data) {
+            state.clients = data;
+        },
+        SET_INNER_COMPANIES(state, data) {
+            state.innerCompanies = data;
         },
     },
     actions: {
@@ -203,6 +218,19 @@ export default createStore({
         },
         setNotFound() {
             router.replace({name: 'projectList'});
+        },
+
+        async getClients(context) {
+            let result = await api.company.getClient();
+            if (result.status) {
+                context.commit('SET_CLIENTS', result.result);
+            }
+        },
+        async getInnerCompanies(context) {
+            let result = await api.company.getInner();
+            if (result.status) {
+                context.commit('SET_INNER_COMPANIES', result.result);
+            }
         },
     },
 })

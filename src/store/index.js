@@ -144,7 +144,6 @@ export default createStore({
             let result = await api.project.getProject(projectId, revisionId, data);
             if (result.status) {
 
-
                 context.commit('SET_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_RECALCULATED_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_INTERMEDIATE_PROJECT', JSON.parse(JSON.stringify(result.result)));
@@ -152,7 +151,7 @@ export default createStore({
             context.commit('PRELOADER_DECREMENT');
         },
         async createProject(context, {data}) {
-            context.commit('PRELOADER_INCREMENT');
+            // context.commit('PRELOADER_INCREMENT');
             let result = await api.project.createProject(data);
             if (result.status) {
                 context.commit('SET_PROJECT', JSON.parse(JSON.stringify(result.result)));
@@ -161,7 +160,7 @@ export default createStore({
 
                 toast.success(result.message);
             }
-            context.commit('PRELOADER_DECREMENT');
+            // context.commit('PRELOADER_DECREMENT');
         },
         async updateProject(context) {
             let project = context.getters.GET_INTERMEDIATE_PROJECT;

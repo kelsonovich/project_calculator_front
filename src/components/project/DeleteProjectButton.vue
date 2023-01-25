@@ -12,8 +12,10 @@ export default {
   },
   methods: {
     async deleteProject() {
-     await this.$store.dispatch('deleteProject', {projectId: this.project.id, revisionId: this.project.revision_id});
-     await this.$store.dispatch('getAllProjects');
+      let projectId = (this.project.parent_id) ? this.project.parent_id : this.project.id;
+
+      await this.$store.dispatch('deleteProject', {projectId: projectId, revisionId: this.project.revision_id});
+      await this.$store.dispatch('getAllProjects');
     }
   }
 }

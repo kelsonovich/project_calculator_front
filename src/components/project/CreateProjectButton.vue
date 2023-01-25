@@ -49,8 +49,9 @@ export default {
       this.title = value.title;
     },
     async createProject() {
-      if (this.title.length > 5) {
-        await this.$store.dispatch('createProject', {data: {title: this.title}});
+      await this.$store.dispatch('createProject', {data: {title: this.title}});
+
+      if (this.project) {
         document.querySelector('button[data-bs-dismiss="modal"]').click();
         await this.$store.dispatch('getAllProjects');
 

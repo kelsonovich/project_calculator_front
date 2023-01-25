@@ -1,26 +1,27 @@
 <template>
-  <table class="table table-hover table-bordered table-sm">
-    <TableHead :config="config" :thBgClass="'table-primary'"/>
+  <div v-if="isRenderNeeded">
+    <table class="table table-hover table-bordered table-sm">
+      <TableHead :config="config" :thBgClass="'table-primary'"/>
 
-    <TableGanttBodyComponent
-        :steps="steps"
-        :config="config"
-        :isClient="isClient"
-        :projectLength="projectLength"
-        :agreementWeeks="agreementWeeks"
-    />
-  </table>
-  <div class="container-fluid row">
-    <div class="row">
-      <div class="col-1 bg-work" style="width: 50px"></div>
-      <div class="col-11"> — время работ подрядчика</div>
-    </div>
-    <div class="row">
-      <div class="col-1 bg-agreement" style="width: 50px"></div>
-      <div class="col-11"> — время на согласование с заказчиком</div>
+      <TableGanttBodyComponent
+          :steps="steps"
+          :config="config"
+          :isClient="isClient"
+          :projectLength="projectLength"
+          :agreementWeeks="agreementWeeks"
+      />
+    </table>
+    <div class="container-fluid row">
+      <div class="row">
+        <div class="col-1 bg-work" style="width: 50px"></div>
+        <div class="col-11"> — время работ подрядчика</div>
+      </div>
+      <div class="row">
+        <div class="col-1 bg-agreement" style="width: 50px"></div>
+        <div class="col-11"> — время на согласование с заказчиком</div>
+      </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -39,6 +40,18 @@ export default {
     isClient: Boolean,
     projectLength: [Number, String],
     agreementWeeks: [Number, String],
+  },
+  computed: {
+    isRenderNeeded(){
+      let countZeros = 0;
+      this.steps.forEach(step => {
+        if (step.hours_avg === 0) {
+          countZeros++;
+        }
+      });
+
+      return this.steps.length !== countZeros;
+    }
   },
   methods: {}
 }

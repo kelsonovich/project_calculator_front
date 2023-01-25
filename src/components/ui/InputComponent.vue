@@ -19,6 +19,16 @@
           placeholder="Описание проекта..."
       > </textarea>
     </template>
+    <template v-else-if="isSelect">
+      <select class="form-select" @change="setValue">
+        <option v-for="option in input.options"
+                :key="option.value"
+                :id="input.key"
+                :selected="option.value === inputValue"
+                :placeholder="input.placeholder"
+        >{{ option.title }}</option>
+      </select>
+    </template>
     <template v-else>
       <input
           :id="input.key"
@@ -98,6 +108,9 @@ export default {
     },
     isNumber() {
       return this.input.type === 'number';
+    },
+    isSelect() {
+      return this.input.type === 'select';
     },
     isDate() {
       return this.input.type === 'date';

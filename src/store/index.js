@@ -19,6 +19,7 @@ export default createStore({
         userData: null,
         clients: null,
         innerCompanies: null,
+        hasBeenCreated: false
     },
     getters: {
         GET_ALL_PROJECTS(state) {
@@ -45,6 +46,9 @@ export default createStore({
         GET_INNER_COMPANIES(state) {
             return state.innerCompanies;
         },
+        GET_HAS_BEEN_CREATED(state) {
+            return state.hasBeenCreated;
+        }
     },
     mutations: {
         SET_ALL_PROJECTS(state, projects) {
@@ -121,6 +125,9 @@ export default createStore({
         SET_INNER_COMPANIES(state, data) {
             state.innerCompanies = data;
         },
+        SET_HAS_BEEN_CREATED(state) {
+            state.hasBeenCreated = true;
+        }
     },
     actions: {
         clearProject(context) {
@@ -165,10 +172,12 @@ export default createStore({
             }
             context.commit('PRELOADER_DECREMENT');
         },
-        async createProject(context, {data}) {
+        async createProject(context, {project}) {
             // context.commit('PRELOADER_INCREMENT');
-            let result = await api.project.createProject(data);
+            let result = await api.project.createProject(project);
             if (result.status) {
+                context.commit('SET_HAS_BEEN_CREATED');
+
                 context.commit('SET_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_RECALCULATED_PROJECT', JSON.parse(JSON.stringify(result.result)));
                 context.commit('SET_INTERMEDIATE_PROJECT', JSON.parse(JSON.stringify(result.result)));
@@ -230,6 +239,13 @@ export default createStore({
             let result = await api.company.getInner();
             if (result.status) {
                 context.commit('SET_INNER_COMPANIES', result.result);
+            }
+        },
+        async createCompany(context, {company}) {
+            let result = await api.company.create(company);
+            if (result.status) {
+                context.commit('SET_HAS_BEEN_CREATED');
+                toast.success(result.message);
             }
         },
     },

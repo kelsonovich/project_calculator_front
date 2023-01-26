@@ -21,10 +21,10 @@
     </template>
     <template v-else-if="isSelect">
       <select class="form-select" @change="setValue">
+        <option disabled selected>Выберите...</option>
         <option v-for="option in input.options"
-                :key="option.value"
-                :id="input.key"
-                :selected="option.value === inputValue"
+                :key="option.id"
+                :value="option.id"
                 :placeholder="input.placeholder"
         >{{ option.title }}</option>
       </select>

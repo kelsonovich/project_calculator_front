@@ -43,7 +43,7 @@ export default createStore({
             return state.clients;
         },
         GET_INNER_COMPANIES(state) {
-            return state.clients;
+            return state.innerCompanies;
         },
     },
     mutations: {

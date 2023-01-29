@@ -72,6 +72,9 @@ export default {
     isTextarea() {
       return this.input.type === 'long_text';
     },
+    isSelect() {
+      return this.input.type === 'select';
+    },
   },
   methods: {
     setValue(event) {
@@ -108,9 +111,6 @@ export default {
     },
     isNumber() {
       return this.input.type === 'number';
-    },
-    isSelect() {
-      return this.input.type === 'select';
     },
     isDate() {
       return this.input.type === 'date';

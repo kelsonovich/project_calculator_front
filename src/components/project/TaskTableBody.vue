@@ -1,9 +1,10 @@
 <template>
-  <tbody v-if="prepareRows">
-    <tr
+  <Container @drop="onDrop" tag="tbody" lock-axis="y">
+    <Draggable
         v-for="(row, index) in prepareRows"
         :key="row[0].id"
-        class=""
+        tag="tr"
+        :drag-not-allowed="isAdditional"
     >
       <TableCellComponent
           v-for="(cell) in row"
@@ -25,17 +26,20 @@
           </button>
         </td>
       </template>
-    </tr>
-  </tbody>
+    </Draggable>
+  </Container>
+
 </template>
 
 <script>
 import TableCellComponent from "@/components/ui/table/cell/TableCellComponent";
 import utils from "@/assets/js/utils";
+import {Container, Draggable} from "vue-dndrop";
+import {applyDrag} from "@/assets/js/utils";
 
 export default {
   name: "TaskTableBody",
-  components: {TableCellComponent},
+  components: {TableCellComponent, Container, Draggable},
   props: {
     body: [Array, Object],
     isAdditional: Boolean,
@@ -147,11 +151,26 @@ export default {
       });
 
       return body;
-    }
+    },
+    onDrop(dropResult) {
+
+      let rows = this.rows;
+      rows = applyDrag(rows, dropResult);
+
+      rows.forEach((row, index) => {
+        row.sort = 100 * (index + 1);
+      });
+
+      this.rows = rows;
+
+      this.$emit('changeProject', this.rows);
+    },
   }
 }
 </script>
 
 <style scoped>
-
+.dndrop-container.vertical > .dndrop-draggable-wrapper {
+  display: revert!important;
+}
 </style>

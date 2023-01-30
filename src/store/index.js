@@ -87,15 +87,17 @@ export default createStore({
                 }
             }
         },
-        CHANGE_STEPS (state, newStep) {
-            state.intermediateProject.steps.forEach(step => {
-                if (Number(step.id) === Number(newStep.id)) {
-                    for (let key in newStep) {
-                        if (utils.hasProperty(step, key)) {
-                            step[key] = newStep[key];
+        CHANGE_STEPS (state, newSteps) {
+            newSteps.forEach(newStep => {
+                state.intermediateProject.steps.forEach(step => {
+                    if (Number(step.id) === Number(newStep.id)) {
+                        for (let key in newStep) {
+                            if (utils.hasProperty(step, key)) {
+                                step[key] = newStep[key];
+                            }
                         }
                     }
-                }
+                });
             });
         },
         CHANGE_OPTIONS (state, options) {

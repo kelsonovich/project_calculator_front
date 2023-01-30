@@ -6,15 +6,15 @@
             class="nav-link active" id="client-tab" data-bs-toggle="pill" data-bs-target="#client" type="button"
             role="tab" aria-controls="client" aria-selected="true"
         >
-          Клиент
+          {{ getInnerClientTitle }}
         </button>
       </li>
       <li class="nav-item" role="presentation">
         <button
-            class="nav-link" id="scid-tab" data-bs-toggle="pill" data-bs-target="#scid" type="button"
-            role="tab" aria-controls="scid" aria-selected="false" tabindex="-1"
+            class="nav-link" id="company-tab" data-bs-toggle="pill" data-bs-target="#company" type="button"
+            role="tab" aria-controls="company" aria-selected="false" tabindex="-1"
         >
-          СКАИД
+          {{ getInnerCompanyTitle }}
         </button>
       </li>
       <li class="nav-item" role="presentation">
@@ -31,7 +31,27 @@
 
 <script>
 export default {
-  name: "FooterComponent"
+  name: "FooterComponent",
+  computed: {
+    project() {
+      return this.$store.getters.GET_RECALCULATED_PROJECT;
+    },
+    getInnerCompanyTitle() {
+      if (this.project) {
+        return this.project.innerCompany.title;
+      }
+
+      return 'Компания';
+    },
+    getInnerClientTitle() {
+
+      if (this.project) {
+        return this.project.clientCompany.title;
+      }
+
+      return 'Клиент';
+    }
+  },
 }
 </script>
 

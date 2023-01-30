@@ -17,7 +17,7 @@
         <ClientTabComponent :project="project" @changeProject="calculate"/>
       </div>
 
-      <div class="tab-pane fade" id="scid" role="tabpanel" aria-labelledby="scid-tab" tabindex="0">
+      <div class="tab-pane fade" id="company" role="tabpanel" aria-labelledby="company-tab" tabindex="0">
         <CompanyTabComponent :project="project" @changeProject="calculate"/>
       </div>
 
